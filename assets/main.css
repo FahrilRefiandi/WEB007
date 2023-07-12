@@ -1,0 +1,16 @@
+.top-navbar{
+    background-color: #0096C7;
+}
+.top-navbar .nav-link{
+    color: #fff;
+}
+
+.top-navbar .btn{
+    border-radius: 0px;
+    border-color: #fff;
+    color: #fff;
+}
+.top-navbar .btn:hover{
+    border-color: transparent;
+    background-color: black;
+}
