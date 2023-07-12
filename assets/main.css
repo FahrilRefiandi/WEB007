@@ -14,3 +14,16 @@
     border-color: transparent;
     background-color: black;
 }
+.footer-logo{
+    width: 100%;
+}
+.footer{
+    background-color: #0096C7;
+    color: #fff;
+    /* margin left right 20px*/
+    padding: 0px 40px;
+    /* bottom footer*/
+    /* position: absolute;
+    bottom: 0;
+    width: 100%; */
+}
