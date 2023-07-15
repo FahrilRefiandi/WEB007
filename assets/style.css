@@ -1,0 +1,22 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  color: #FFF;
+}
+
+h1{
+    font-size: 23px;
+    font-weight: 900;
+}
+
+h2{
+  font-size: 20px;
+  font-weight: 800;
+}
+
+p, a{
+  font-size: 14px;
+  font-weight: 700;
+} 
