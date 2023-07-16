@@ -12,7 +12,7 @@
             <p>Paket Belajar</p>
             <p>Tentang Kami</p>
         </div>
-        <a type="submit" href="login.php">Masuk/Daftar</a>
+        <a type="submit" href="../login.php">Masuk/Daftar</a>
     </div>
 </body>
 </html>

@@ -24,10 +24,6 @@
     margin-bottom: 0;
 }
 
-.items p:hover {
-    border-bottom: 2px solid #FFD500;
-}
-
 a {
     display: flex;
     padding: 10px 15px;

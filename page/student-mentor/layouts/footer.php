@@ -15,11 +15,14 @@
                       <img src="../../assets/images/app%20store.png" alt="app store">
                   </div>
               </div>
-          </div>
-          <div class="information">
-              <h1>Perusahaan</h1>
-              <p>Tentang Kami</p>
-              <p>Karir</p>
+          </div><div class="information">
+              <h1>Materi Pelajaran</h1>
+              <p>Fisika</p>
+              <p>Kimia</p>
+              <p>Biologi</p>
+              <p>Ekonomi</p>
+              <p>Sosiologi</p>
+              <p>Geografi</p>
           </div>
           <div class="information">
               <h1>Ikuti Kami</h1>
