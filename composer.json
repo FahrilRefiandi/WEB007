@@ -1,0 +1,12 @@
+{
+    "name": "web007/fahril",
+    "authors": [
+        {
+            "name": "FahrilRefiandi",
+            "email": "fahril.refandi@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/routing": "^6.3"
+    }
+}

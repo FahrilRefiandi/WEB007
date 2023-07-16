@@ -4,3 +4,4 @@ RewriteBase /WEB007/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ page/$1.php [L]
+RewriteRule ^admin/dashboard$ admin/dashboard.php [L]
