@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login page - Kasipaham</title>
-    <link rel="icon" type="icon" href="./assets/Kasipaham ico.svg">
+    <link rel="icon" type="icon" href="../assets/images/Kasipaham ico.svg">
     <link rel="stylesheet" href="style.css">
     <style>
         * {
@@ -34,11 +34,11 @@
             color: #FAFAFA;
             border: 0px;
         }
-        input {
+        input[type="submit"], [type="text"], [type="password"]{
             display: flex;
-            max-width: 280px;
-            max-height: 36px;
-            padding: 10px 128px;
+            width: 280px;
+            height: 36px;
+            padding: 10px 16px;
             justify-content: center;
             align-items: center;
             gap: 10px;
@@ -67,15 +67,32 @@
         .form-control {
             margin-bottom: 16px;
         }
+        .form-control::placeholder {
+            text-align: left;
+        }
         .login-form p {
             margin-top: 32px;
             color: #737373;
         }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            padding-bottom: 16px;
+        }
+        .login-form p a {
+            color: #737373;
+            text-decoration: none;
+        }
+        .login-form p a:hover {
+            text-decoration: underline;
+        }
         .image-container {
             position: relative;
             width: 50%;
+            height: 100vh;
             background-repeat: no-repeat;
-            background: url(./assets/Title-Header.png);
+            background: url(../assets/images/Login-Header.png);
+            background-size: cover;
             flex: 1;
             margin: 0;
         }
