@@ -4,7 +4,7 @@ namespace Config;
 class Session{
     // auth session
     public static function auth($user=null){
-        if (session_status() === PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE && !isset($_SESSION)) {
             session_start();
         }
         if($user){
@@ -37,6 +37,18 @@ class Session{
         }
     
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
+    }
+
+    public static function destroy(){
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        
+        return session_destroy();
+
+
+
     }
 
     

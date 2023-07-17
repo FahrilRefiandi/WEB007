@@ -35,15 +35,18 @@ class AuthController
             }
             
         }
-
-
-
-        
-     
     }
 
     public function register()
     {
      
+    }
+
+    public static function logout()
+    {
+        Session::destroy();
+        ob_start();
+        redirect("/login");
+        ob_end_flush();
     }
 }

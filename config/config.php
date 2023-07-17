@@ -6,7 +6,8 @@ require_once("Validation.php");
 require_once("database.php");
 require_once("Session.php");
 require_once("Storage.php");
-require_once(__DIR__ . "../../vendor/autoload.php");
+// require_once(__DIR__ . "../../vendor/autoload.php");
+require_once(__DIR__."/../controllers/AuthController.php");
 
 
 $base_url = "http://localhost/WEB007";
@@ -50,8 +51,21 @@ function errors($key = null)
 
 function redirect($url)
 {
-    global $base_url;
-    header("Location: $base_url$url");
+    $url=url($url);
+    if (!headers_sent()) {
+        header("Location: " . $url);
+        exit();
+    } else {
+        // Fallback jika header sudah dikirim
+        echo '<script type="text/javascript">';
+        echo 'window.location.href="' . $url . '";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url=' . $url . '" />';
+        echo '</noscript>';
+        exit();
+    }
+    
 }
 
 function middleware($middleware = [])

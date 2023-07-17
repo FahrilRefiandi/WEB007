@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . "../../../../config/config.php");
+// require_once(__DIR__ . "../../../../config/config.php");
 
 $template['css'] = __DIR__."/css.php";
 $template['js'] = __DIR__."/js.php";

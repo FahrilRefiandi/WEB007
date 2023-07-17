@@ -9,10 +9,6 @@ if(isset($_POST['login'])){
 }
 
 middleware('guest');
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

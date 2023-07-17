@@ -3,6 +3,12 @@
 use Config\Session;
 use Config\Storage;
 
+
+
+if(isset($_POST['logout'])){
+    \Controllers\AuthController::logout();
+}
+
 ?>
 <header id="page-header">
         <!-- Header Content -->
@@ -76,9 +82,12 @@ use Config\Storage;
                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_lock.html">
                     <span class="fs-sm fw-medium">Lock Account</span>
                   </a>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_signin.html">
+                  <form method="post">
+                  <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between" name="logout">
                     <span class="fs-sm fw-medium">Log Out</span>
-                  </a>
+                  </button>
+                  </form>
+                  
                 </div>
               </div>
             </div>
