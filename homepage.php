@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/style.css?token=GHSAT0AAAAAACFACY65QRWMDMVTSWZR3AEUZFR6ZUA">
+    <link rel="stylesheet" href="assets/style.css">
     <style>
         body {
             margin: 0;
@@ -229,19 +229,19 @@
 
 <body>
     <div class="navbar-custom">
-        <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/kasipaham.svg?token=GHSAT0AAAAAACFACY64F2QGGFH56CVKNDZIZFR6SXQ" alt="kasipaham logo">
+        <img src="assets/images/kasipaham.svg" alt="kasipaham logo">
         <div class="items">
             <p>Produk</p>
             <p>Paket Belajar</p>
             <p>Tentang Kami</p>
         </div>
-        <a type="submit" href="login.php">Masuk/Daftar</a>
+        <a type="submit" href="page/login.php">Masuk/Daftar</a>
     </div>
     <div class="image-container">
-        <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/Title-Header.png?token=GHSAT0AAAAAACFACY652O3WNUT54L2WIOLGZFR6UJQ" alt="Header">
+        <img src="assets/images/Title-Header.png" alt="Header">
     </div>
     <div class="promo-container">
-        <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/card%20tryout.png?token=GHSAT0AAAAAACFACY65AZS2WXWK7QDVDNHAZFR6UYQ" alt="Tryout">
+        <img src="assets/images/card%20tryout.png" alt="Tryout">
     </div>
     <div class="content-container">
         <h1>Kenapa harus #KasipahamAja?</h1>
@@ -279,12 +279,12 @@
     </div>
     <footer>
         <div class="app">
-            <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/kasipaham.svg?token=GHSAT0AAAAAACFACY64F2QGGFH56CVKNDZIZFR6SXQ" alt="kasipaham logo">
+            <img src="assets/images/kasipaham.svg" alt="kasipaham logo">
             <div class="store">
                 <h1>Mobile Version</h1>
                 <div class="icon-store">
-                    <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/playstore.png?token=GHSAT0AAAAAACFACY65LT5N2M66XASBIMWIZFR6VXA" alt="playstore">
-                    <img src="https://raw.githubusercontent.com/FahrilRefiandi/WEB007/main/assets/images/app%20store.png?token=GHSAT0AAAAAACFACY654ZQ7IZSF6HBLRC3OZFR6V5A" alt="app store">
+                    <img src="assets/images/playstore.png" alt="playstore">
+                    <img src="assets/images/app%20store.png" alt="app store">
                 </div>
             </div>
         </div>
