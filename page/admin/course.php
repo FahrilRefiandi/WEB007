@@ -76,7 +76,7 @@ GROUP BY course.id;
                     ?>
                     <!-- Course -->
                     <div class="col-md-6 col-lg-4 col-xl-3">
-                        <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?=url('/admin/course/'.$cours['id'])?>">
+                        <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?=url('/admin/detail-course?id='.$cours['id'])?>">
                             <div class="block-content block-content-full text-center bg-city">
                                 <div class="item item-2x item-circle bg-white-10 py-3 my-3 mx-auto">
                                     <i class="fab fa-html5 fa-2x text-white-75"></i>

@@ -31,18 +31,18 @@ middleware('guest');
 </div>
 
 <div  class="container-fluid w-25 m-auto p-4 rounded-3 shadow justify-content-center bg-light position-absolute top-50 start-50 translate-middle">
-    <form>
+    <form method="post">
       <h1 class="h3 mb-4 fw-bold text-dark">Selamat Datang di Kasipaham</h1>
       <span class="errors"><?=Session::session('errors')?></span>
       <label class="form-label mb-2">Username</label>
       <div class="form-floating">
-        <input class="form-control form-control-lg mb-3" type="text" placeholder="Username" aria-label=".form-control-lg example">
+        <input class="form-control form-control-lg mb-3" type="text" placeholder="Username" aria-label=".form-control-lg example" name="username">
         <label for="floatingInput">Username</label>
         <span class="errors"><?=errors('username')?></span>
       </div>
       <label class="form-label mb-2">Password</label>
       <div class="form-floating">
-      <input class="form-control form-control-lg mb-3" type="password" placeholder="Password" aria-label=".form-control-lg example">
+      <input class="form-control form-control-lg mb-3" type="password" placeholder="Password" aria-label=".form-control-lg example" name="password">
         <label for="floatingPassword">Password</label>
         <span class="errors"><?=errors('password')?></span>
       </div>
