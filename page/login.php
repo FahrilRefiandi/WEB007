@@ -25,7 +25,7 @@ middleware('guest');
 
 <body class="d-flex bg-info">  
 <div class="position-fixed top-0 start-0 p-4">
-<a class="text-light" href="../index.php"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+<a class="text-light" href="./"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
   <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
 </svg></a>
 </div>
@@ -54,7 +54,7 @@ middleware('guest');
         </label>
       </div>
       <button name="login" class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
-      <p class="mt-3 mb-3 ">Belum punya akun? <a class="text-decoration-none" href="<?=url('/page/register.php')?>">Daftar</a></p>
+      <p class="mt-3 mb-3 ">Belum punya akun? <a class="text-decoration-none" href="<?=url('/register')?>">Daftar</a></p>
       <p class="mt-5 mb-3 text-body-secondary">©2023</p>
     </form>
   </div>

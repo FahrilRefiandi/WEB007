@@ -36,8 +36,8 @@
         </li>
       </ul>
       <div>
-      <a type="submit" class="btn btn-outline-primary me-2" href="page/login.php">Masuk</a>
-      <a type="button" class="btn btn-primary" href="page/register.php">Daftar</a>
+      <a type="submit" class="btn btn-outline-primary me-2" href="./login">Masuk</a>
+      <a type="button" class="btn btn-primary" href="./register">Daftar</a>
       </div>
   </div>
 </nav>

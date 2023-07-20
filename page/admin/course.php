@@ -43,12 +43,11 @@ GROUP BY course.id;
             <div class="bg-primary-dark">
                 <div class="content content-full text-center pt-7 pb-5">
                     <h1 class="h2 text-white mb-2">
-                        Learn new creative skills today.
+                        Course Development System
                     </h1>
                     <h2 class="h4 fw-normal text-white-75">
-                        Join our community and get access to over 10,000 online courses.
+                        Laman Management Course Kasipaham
                     </h2>
-                    <a class="btn btn-primary px-4 py-2" href="javascript:void(0)">Subscribe from $9/month</a>
                 </div>
             </div>
             <!-- END Hero Content -->
@@ -87,7 +86,7 @@ GROUP BY course.id;
                             </div>
                             <div class="block-content block-content-full">
                                 <h4 class="h5 mb-1 skeleton">
-                                    <?=$cours['course_title']?>
+                                    <?=$cours['course_title']?> :
                                     <small class="course-description">
                                         <?=$cours['description']?>
                                     </small>
@@ -104,47 +103,6 @@ GROUP BY course.id;
                 </div>
             </div>
             <!-- END Page Content -->
-
-            <!-- Instructors -->
-            <div class="bg-primary-dark py-5">
-                <div class="content content-full content-boxed text-center">
-                    <h2 class="fw-semibold text-white mb-2">
-                        Learn from the best instructors worldwide.
-                    </h2>
-                    <h3 class="h4 fw-normal text-white-75">Improve your skills and find the perfect job the right way.</h3>
-                    <div class="row items-push mt-5">
-                        <div class="col-md-4">
-                            <img class="img-avatar img-avatar-thumb" src="assets/media/avatars/avatar5.jpg" alt="">
-                            <div class="fs-lg fw-semibold text-white mt-3">Lori Grant</div>
-                            <div class="fs-sm text-white-75">Web Designer</div>
-                        </div>
-                        <div class="col-md-4">
-                            <img class="img-avatar img-avatar-thumb" src="assets/media/avatars/avatar15.jpg" alt="">
-                            <div class="fs-lg fw-semibold text-white mt-3">Jack Estrada</div>
-                            <div class="fs-sm text-white-75">Web Developer</div>
-                        </div>
-                        <div class="col-md-4">
-                            <img class="img-avatar img-avatar-thumb" src="assets/media/avatars/avatar3.jpg" alt="">
-                            <div class="fs-lg fw-semibold text-white mt-3">Carol Ray</div>
-                            <div class="fs-sm text-white-75">Photographer</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Instructors -->
-
-            <!-- Get Started -->
-            <div class="bg-body-dark">
-                <div class="content content-full">
-                    <div class="my-5 text-center">
-                        <h3 class="h4 mb-4">
-                            Are you ready to get started? Join today.
-                        </h3>
-                        <a class="btn btn-primary px-4 py-2" href="javascript:void(0)">Subscribe from $9/month</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END Get Started -->
         </main>
 
         <!-- END Main Container -->
