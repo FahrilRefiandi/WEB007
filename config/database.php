@@ -1,6 +1,8 @@
 <?php
+namespace Config;
+class Database{
 
-function connect(){
+public static function connect(){
     // connect to database
     $host="localhost";
     $user="root";
@@ -14,8 +16,8 @@ function connect(){
     return $connection;
 }
 
-function getAll($query){
-    $connection=connect();
+public static function getAll($query){
+    $connection=self::connect();
     $result=mysqli_query($connection,$query);
     $rows=[];
     if(mysqli_num_rows($result)>0){
@@ -26,11 +28,10 @@ function getAll($query){
     return $rows;
 }
 
-function getFirst($query){
-    $connection=connect();
+public static function getFirst($query){
+    $connection=self::connect();
     $result=mysqli_query($connection,$query);
     $row=mysqli_fetch_assoc($result);
     return $row;
 }
-
-?>
+}

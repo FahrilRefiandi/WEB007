@@ -3,7 +3,7 @@
 // use Config\Session;
 
 require_once("Validation.php");
-require_once("database.php");
+require_once("Database.php");
 require_once("Session.php");
 require_once("Storage.php");
 // require_once(__DIR__ . "../../vendor/autoload.php");
