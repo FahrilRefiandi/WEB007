@@ -23,7 +23,7 @@
 <body>
 <nav class="navbar navbar-expand-lg px-5 py-3 sticky-top bg-light shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="assets/images/kasipaham.svg" alt="kasipaham logo" height="32"></a>
+    <a class="navbar-brand me-2" href="#"><img src="<?=asset('images/kasipaham.svg')?>" alt="kasipaham logo" height="32"></a>
     <ul class="navbar-nav nav-underline">
         <li class="nav-item">
           <a class="nav-link active text-primary" aria-current="page" href="index.php">Home</a>
