@@ -65,14 +65,22 @@ if(isset($_POST['logout'])){
                   <p class="mb-0 text-muted fs-sm fw-medium"><?=Session::auth()['role']?></p>
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                  <a class="dropdown-item d-flex align-items-center justify-content-left" href="javascript:void(0)">
+                    <i class="bi bi-person-circle me-2"></i> 
+                    <span class="fs-sm fw-medium">Profile</span>
+                  </a>
+                </div>
+                <div class="p-2">
+                  <a class="dropdown-item d-flex align-items-center justify-content-left" href="javascript:void(0)"> 
+                    <i class="bi bi-gear-wide-connected me-2"></i>
                     <span class="fs-sm fw-medium">Settings</span>
                   </a>
                 </div>
                 <div role="separator" class="dropdown-divider m-0"></div>
                 <div class="p-2">
                   <form method="post">
-                  <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between" name="logout">
+                  <button type="submit" class="dropdown-item d-flex align-items-center justify-content-left" name="logout">
+                    <i class="bi bi-box-arrow-right me-2"></i>
                     <span class="fs-sm fw-medium">Log Out</span>
                   </button>
                   </form>

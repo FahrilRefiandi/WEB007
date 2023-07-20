@@ -47,7 +47,7 @@
         </li>
         <li class="nav-main-item">
           <a class="nav-main-link" href="<?=url('/admin/course')?>">
-            <i class="nav-main-link-icon si si-speedometer"></i>
+            <i class="nav-main-link-icon bi bi-book"></i>
             <span class="nav-main-link-name">Course</span>
           </a>
         </li>
