@@ -1,17 +1,17 @@
 <?php
 
+use Config\Database;
 use Config\Session;
 
 require_once(__DIR__ . "../../../config/config.php");
 middleware(["auth", "admin"]);
 require_once('layouts/template.php');
-$course=getAll('
+$course=Database::getAll("
 SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learning_materials.created_at) AS last_material
 FROM course
 LEFT JOIN learning_materials ON course.id = learning_materials.course_id
 GROUP BY course.id;
-
-');
+");
 
 ?>
 

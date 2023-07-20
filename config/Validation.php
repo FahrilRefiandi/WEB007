@@ -2,6 +2,7 @@
 
 namespace Validation;
 
+use Config\Database;
 use Config\Session;
 
 class Validation
@@ -42,20 +43,20 @@ class Validation
                     }
                 }
                 if ($rule == "unique:users") {
-                    $connection = connect();
-                    $result = mysqli_query($connection, "SELECT * FROM users WHERE $key='$request[$key]'");
-                    if (mysqli_num_rows($result) > 0) {
+                    // $connection = connect();
+                    // $result = mysqli_query($connection, "SELECT * FROM users WHERE $key='$request[$key]'");
+                    $result=Database::getFirst("SELECT * FROM users WHERE $key='$request[$key]'");
+                    if ($result > 0) {
                         $error[$key][] = "Field $key already exist";
                     }
                 }
             }
         }
 
-        Session::session("errors", $error);
+        
         Session::session("old", $request);
-
         if (count($error) > 0) {
-            return false;
+            return Session::session("errors", $error);
         }
         return true;
     }
