@@ -38,6 +38,8 @@
       <div>
       <a type="submit" class="btn btn-outline-primary me-2" href="./login">Masuk</a>
       <a type="button" class="btn btn-primary" href="./register">Daftar</a>
+      <a type="submit" class="btn btn-outline-primary me-2" href="<?=url('/login')?>">Masuk</a>
+      <a type="button" class="btn btn-primary" href="<?=url('/register')?>">Daftar</a>
       </div>
   </div>
 </nav>

@@ -1,6 +1,6 @@
 <?php
 
-use Config\Session;
+// use Config\Session;
 
 require_once("Validation.php");
 require_once("database.php");
@@ -14,8 +14,6 @@ $base_url = "http://localhost/WEB007";
 
 $header = __DIR__ . "/../page/layouts/header.php";
 $footer = __DIR__ . "/../page/layouts/footer.php";
-
-
 
 
 function asset($path)
@@ -33,17 +31,16 @@ function url($url = '/')
 function errors($key = null)
 {
     if ($key == null) {
-        if (isset($_SESSION['error'])) {
-            $errors = $_SESSION['error'];
-            unset($_SESSION['error']);
+        if (isset($_SESSION['errors'])) {
+            $errors = $_SESSION['errors'];
+            unset($_SESSION['errors']);
             return $errors;
         }
     } else {
 
-        if (isset($_SESSION['error'][$key])) {
-            $errors = $_SESSION['error'][$key];
-            unset($_SESSION['error'][$key]);
-            // return to string index 0
+        if (isset($_SESSION['errors'][$key])) {
+            $errors = $_SESSION['errors'][$key];
+            unset($_SESSION['errors'][$key]);
             return $errors[0];
         }
     }

@@ -39,16 +39,30 @@ class Session{
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 
+    public static function old($key=null){
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if ($key !== null) {
+            if (isset($_SESSION['old'][$key])) {
+                $oldValue = $_SESSION['old'][$key];
+                unset($_SESSION['old'][$key]);
+                return $oldValue;
+            }
+            return null;
+        }
+    
+        return isset($_SESSION['old']) ? $_SESSION['old'] : null;
+    }
+
+    
+
     public static function destroy(){
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         
-        
         return session_destroy();
-
-
-
     }
 
     

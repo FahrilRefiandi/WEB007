@@ -19,18 +19,17 @@ class AuthController
             $username=$request['username'];
             $password=$request['password'];
             $result=mysqli_query($connection,"SELECT * FROM users WHERE username='$username'");
-            session_start();
+            // session_start();
             if(mysqli_num_rows($result)>0){
                 $user=mysqli_fetch_assoc($result);
                 if(password_verify($password,$user['password'])){
                     Session::auth($user);
                     redirect("/$user[role]/dashboard");
                 }else{
-                    $_SESSION['error']['password'][]="Invalid password";
-                    // header("Location: /login");
+                    Session::session("password","Invalid password");
                 }
             }else{
-                $_SESSION['error']['username'][]="Invalid username";
+                Session::session("username","Invalid username");
                 // header("Location: /login");
             }
             
