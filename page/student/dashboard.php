@@ -124,6 +124,8 @@ GROUP BY course.id;
 
 
   <?php require($template['js']) ?>
+  
+  <?php include($notif)?>
 </body>
 
 </html>

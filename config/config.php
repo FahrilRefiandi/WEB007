@@ -18,6 +18,7 @@ $base_url = "http://localhost/WEB007";
 
 $header = __DIR__ . "/../page/layouts/header.php";
 $footer = __DIR__ . "/../page/layouts/footer.php";
+$notif = __DIR__ . "/../page/notif.php";
 
 
 function asset($path)
