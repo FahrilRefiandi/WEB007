@@ -2,6 +2,7 @@
 require_once("../config/config.php");
 require_once("../controllers/AuthController.php");
 
+use Config\Locale;
 use Config\Session;
 use Controllers\AuthController;
 use Validation\Validation;
@@ -20,7 +21,7 @@ middleware('guest');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login page - Kasipaham</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link href="<?= asset('bootstrap-5.3.0/dist/css/bootstrap.min.css') ?>" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="icon" type="icon" href="<?= asset('images/ico.svg') ?>">
   <link rel="stylesheet" href="<?= asset('main.css') ?>">
 </head>
@@ -44,6 +45,10 @@ middleware('guest');
           }
         }
         ?></ul>
+
+
+
+
 
       <label class="form-label mb-2">Username</label>
       <div class="form-floating">
@@ -69,10 +74,30 @@ middleware('guest');
       <p class="mt-5 mb-3 text-body-secondary">©2023</p>
     </form>
   </div>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="<?= asset('bootstrap-5.3.0/dist/js/bootstrap.bundle.min.js') ?>" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
-
-
+  <?php
+  if ($session=Session::session('success')) {
+  ?>
+    <div class="toast-container top-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="<?=asset('images/Kasipaham ico.svg')?>" class="rounded me-2" alt="Logo Kasipaham" width="25px">
+          <strong class="me-auto">Kasipaham</strong>
+          <small><?=Locale::now()?></small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          <?=$session?>
+        </div>
+      </div>
+    </div>
+    <script>
+      var toast = new bootstrap.Toast(document.getElementById('liveToast'))
+      toast.show()
+    </script>
+  <?php } ?>
+  
 </body>
 
 </html>

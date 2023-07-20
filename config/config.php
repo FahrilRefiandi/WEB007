@@ -3,11 +3,15 @@
 // use Config\Session;
 
 require_once("Validation.php");
+require_once("Locale.php");
 require_once("Database.php");
 require_once("Session.php");
 require_once("Storage.php");
 // require_once(__DIR__ . "../../vendor/autoload.php");
 require_once(__DIR__."/../controllers/AuthController.php");
+
+
+
 
 
 $base_url = "http://localhost/WEB007";
