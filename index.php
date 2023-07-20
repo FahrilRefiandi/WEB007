@@ -36,8 +36,15 @@
         </li>
       </ul>
       <div>
+<<<<<<< HEAD
       <a  class="btn btn-outline-primary me-2" href="<?=url('/login')?>">Masuk</a>
       <a  class="btn btn-primary" href="<?=url('/register')?>">Daftar</a>
+=======
+      <a type="submit" class="btn btn-outline-primary me-2" href="./login">Masuk</a>
+      <a type="button" class="btn btn-primary" href="./register">Daftar</a>
+      <a type="submit" class="btn btn-outline-primary me-2" href="<?=url('/login')?>">Masuk</a>
+      <a type="button" class="btn btn-primary" href="<?=url('/register')?>">Daftar</a>
+>>>>>>> 3cd8500ea66ef6ed9ae010687fdb26428078e85f
       </div>
   </div>
 </nav>
