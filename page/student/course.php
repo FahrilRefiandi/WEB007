@@ -1,17 +1,17 @@
 <?php
 
+use Config\Database;
 use Config\Session;
 
 require_once(__DIR__ . "../../../config/config.php");
 middleware(["auth", "student"]);
 require_once('layouts/template.php');
-$course=getAll('
+$course=Database::getAll("
 SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learning_materials.created_at) AS last_material
 FROM course
 LEFT JOIN learning_materials ON course.id = learning_materials.course_id
 GROUP BY course.id;
-
-');
+");
 
 ?>
 
@@ -40,13 +40,13 @@ GROUP BY course.id;
         <!-- Main Container -->
         <main id="main-container">
             <!-- Hero Content -->
-            <div class="bg-primary-dark">
+            <div class="bg-info">
                 <div class="content content-full text-center pt-7 pb-5">
                     <h1 class="h2 text-white mb-2">
-                        Course Development System
+                        Belajar? Kasipaham aja!
                     </h1>
                     <h2 class="h4 fw-normal text-white-75">
-                        Laman Management Course Kasipaham
+                        Solusi Bimbel Online kamu
                     </h2>
                 </div>
             </div>
@@ -62,9 +62,6 @@ GROUP BY course.id;
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
-                        <div class="text-end">
-                            <button class="btn btn-primary btn-sm">Add Data</button>
-                        </div>
                     </div>
                 </nav>
                 <!-- navbar -->

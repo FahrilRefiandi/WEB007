@@ -1,141 +1,129 @@
 <?php
 
+use Config\Database;
 use Config\Session;
 use Config\Storage;
 
-require_once(__DIR__."../../../config/config.php");
-middleware(["auth","student"]);
+require_once(__DIR__ . "../../../config/config.php");
+middleware(["auth", "student"]);
 require_once('layouts/template.php');
+$course=Database::getAll("
+SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learning_materials.created_at) AS last_material
+FROM course
+LEFT JOIN learning_materials ON course.id = learning_materials.course_id
+GROUP BY course.id;
+");
 ?>
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Kasipaham <?=Session::auth()['name']?></title>
-    <?php require($template['css'])?>
-  </head>
 
-  <body>
-    
-    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
-      <!-- Side Overlay-->
-      <?php require($template['sidebar'])?>
-      
-      <!-- END Sidebar -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Kasipaham <?= Session::auth()['name'] ?></title>
+  <?php require($template['css']) ?>
+</head>
 
-      <!-- Header -->
-     <?php require($template['header'])?>
-      <!-- END Header -->
+<body>
 
-      <!-- Main Container -->
-      <main id="main-container">
-        <!-- Hero -->
-        <div class="bg-body-light">
-          <div class="content content-full">
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
-              <div class="flex-grow-1">
-                <h1 class="h3 fw-bold mb-1">
-                  Kasipaham Database Management
-                </h1>
-                <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-                  Welcome, <?=Session::auth()['name']?>
-                </h2>
-              </div>
-              <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-alt">
-                  <li class="breadcrumb-item">
-                    <a class="link-fx" href="javascript:void(0)">Dashboard</a>
-                  </li>
-                  <li class="breadcrumb-item" aria-current="page">
-                    Dashboard
-                  </li>
-                </ol>
-              </nav>
+  <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
+    <!-- Side Overlay-->
+    <?php require($template['sidebar']) ?>
+
+    <!-- END Sidebar -->
+
+    <!-- Header -->
+    <?php require($template['header']) ?>
+    <!-- END Header -->
+
+    <!-- Main Container -->
+    <main id="main-container">
+      <!-- Hero -->
+      <div class="bg-body-light">
+        <div class="content content-full">
+          <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
+            <div class="flex-grow-1">
+              <h1 class="h3 fw-bold mb-1">
+                Selamat datang di Kasipaham!
+              </h1>
+              <h2 class="fs-base lh-base fw-medium text-muted mb-0">
+                Halo, <?= Session::auth()['name'] ?>
+              </h2>
             </div>
+            <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
+              <ol class="breadcrumb breadcrumb-alt">
+                <li class="breadcrumb-item">
+                  <a class="link-fx" href="javascript:void(0)">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                  Dashboard
+                </li>
+              </ol>
+            </nav>
           </div>
         </div>
-        <!-- END Hero -->
-        <!-- Page Content -->
-        <div class="content">
-          <!-- Your Block -->
-          <div class="block block-rounded-2">
-            <div class="block-header block-header-default">
-              <h3 class="block-title">
-                Data User
-              </h3>
-              <div class="button">
-                <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-sliders me-2"></i>  
-                filter
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-sort-alpha-down me-2"></i>Urutkan A-Z</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-sort-alpha-down-alt me-2"></i>Urutkan Z-A</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#"><i class="bi bi-binoculars me-2"></i>Tampilkan</a>
-                    <ul class="dropdown-menu dropdown-submenu">
-                      <li><a class="dropdown-item" href="#">Admin</a></li>
-                      <li><a class="dropdown-item" href="#">Student</a></li>
-                      <li><a class="dropdown-item" href="#">Mentor</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Buatkan agar bisa global search(ntah username, role atau yang lain) dan menampilkannya di tabel -->
-            <div class="block-content">
-              <form class="d-none d-md-inline-block"method="POST">
-                <div class="input-group input-group-sm">
-                  <input type="text" class="form-control form-control-alt" placeholder="Search.." id="page-header-search-input2" name="page-header-search-input2">
-                    <span class="input-group-text border-0">
-                      <i class="fa fa-fw fa-search"></i>
-                  </span>
-                </div>
+      </div>
+      <!-- END Hero -->
+      <!-- Page Content -->
+      <div class="content">
+        <div class="content content-boxed">
+          <nav class="navbar bg-transparent">
+            <div class="container-fluid">
+              <!-- <span class="navbar-brand">Course</span> -->
+              <form class="d-flex input-group-sm" role="search" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
               </form>
             </div>
-            
-            <div class="block-content">
-            <table class="table table-hover table-striped">
-              <thead class="table-dark">
-                <tr>
-                  <td>No</td>
-                  <td>Nama</td>
-                  <td>Username</td>
-                  <td>Role</td>
-                </tr>
-              </thead>
-              <tbody>
-              <p><?php
-              $data = getAll("SELECT * FROM users") ;
-              $counter = 1;
-              foreach($data as $value){
-              ?>
-              <tr>
-              <td><?=$counter?></td>
-              <td><?=$value['name']?></td>
-              <td><?=$value['username']?></td>
-              <td><?=$value['role']?></td>
-              </tr>
-              <?php $counter++; }?>
-              </tbody>
-              </table>  
-            </p>
+          </nav>
+          <!-- navbar -->
+
+          <div class="row items-push py-4" id="course">
+            <?php
+            foreach($course as $cours){
+            ?>
+            <!-- Course -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+               <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?=url('/student/detail-course?id='.$cours['id'])?>">
+                  <div class="block-content block-content-full text-center bg-city">
+                      <div class="item item-2x item-circle bg-white-10 py-3 my-3 mx-auto">
+                          <i class="fab fa-html5 fa-2x text-white-75"></i>
+                      </div>
+                      <div class="fs-sm text-white-75 skeleton">
+                        <?=$cours['number_of_meetings']?> Materi &bull; Kelas <?=$cours['class']?>
+                      </div>
+                            </div>
+                            <div class="block-content block-content-full">
+                                <h4 class="h5 mb-1 skeleton">
+                                    <?=$cours['course_title']?> :
+                                    <small class="course-description">
+                                        <?=$cours['description']?>
+                                    </small>
+                                </h4>
+                                <div class="fs-sm text-muted skeleton last-material"><?=$cours['last_material']?></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- END Course -->
+                    <?php } ?>   
+              </div>
             </div>
+          <!-- Content Course disini -->
           </div>
-          <!-- END Your Block -->
         </div>
-        <!-- END Page Content -->
-      </main>
-      <!-- END Main Container -->
+        <!-- END Your Block -->
+      </div>
+      <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
 
-      <?php require($template['footer'])?>
-    </div>
-    <!-- END Page Container -->
+    <?php require($template['footer']) ?>
+  </div>
+  <!-- END Page Container -->
 
-    
-    <?php require($template['js'])?>
-  </body>
+
+  <?php require($template['js']) ?>
+</body>
+
 </html>

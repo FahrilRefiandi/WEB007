@@ -17,14 +17,12 @@ if(isset($_POST['logout'])){
           <div class="d-flex align-items-center">
             <!-- Toggle Sidebar -->
             <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-            <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-lg-none" data-toggle="layout" data-action="sidebar_toggle">
-              <i class="fa fa-fw fa-bars"></i>
-            </button>
+            <a class="navbar-brand" href="#"><img src="<?=asset('images/kasipaham.svg')?>" alt="kasipaham logo" height="32"></a>
             <!-- END Toggle Sidebar -->
 
             <!-- Toggle Mini Sidebar -->
             <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-            <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
+            <button type="button" class="btn btn-sm btn-alt-secondary ms-4 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
               <i class="fa fa-fw fa-ellipsis-v"></i>
             </button>
             <!-- END Toggle Mini Sidebar -->
