@@ -68,8 +68,11 @@ GROUP BY course.id;
       <!-- Page Content -->
       <div class="content">
         <div class="content content-boxed">
-          <nav class="navbar bg-transparent">
+          <nav class="navbar bg-transparent p-0">
             <div class="container-fluid">
+            <h3 class="block-title">
+              Course Tersedia
+            </h3>
               <!-- <span class="navbar-brand">Course</span> -->
               <form class="d-flex input-group-sm" role="search" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
@@ -78,7 +81,6 @@ GROUP BY course.id;
             </div>
           </nav>
           <!-- navbar -->
-
           <div class="row items-push py-4" id="course">
             <?php
             foreach($course as $cours){
