@@ -51,7 +51,7 @@ require_once('layouts/template.php');
                   <a class="link-fx" href="javascript:void(0)">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Dashboard
+                  User
                 </li>
               </ol>
             </nav>
@@ -67,8 +67,24 @@ require_once('layouts/template.php');
             <h3 class="block-title">
               Data User
             </h3>
+            <div class="btn-group me-2">
+              <button class="btn btn-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-trash me-2"></i>
+                Delete
+              </button>
+              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <form method="get">
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><button type="submit" name="filter" value="select" class="dropdown-item">Pilih</button></li>
+                  <li><button type="submit" name="filter" value="select-all" class="dropdown-item">Pilih Semua</button></li>
+                  
+                </ul>
+              </form>
+            </div>
             <div class="button">
-              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-sliders me-2"></i>
                 filter
               </button>
@@ -182,7 +198,6 @@ require_once('layouts/template.php');
 
   handleSearch();
 </script>
-
 </body>
 
 </html>
