@@ -22,7 +22,7 @@ GROUP BY course.id;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Kasipaham <?= Session::auth()['name'] ?></title>
-    <?php require($template['css']) ?>
+    <?php include($template['css']) ?>
 </head>
 
 <body>
