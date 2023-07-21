@@ -20,10 +20,10 @@
 <body>
 <nav class="navbar navbar-expand-lg px-5 py-3 sticky-top bg-light shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="assets/images/kasipaham.svg" alt="kasipaham logo" height="32"></a>
+    <a class="navbar-brand" href="#"><img src="<?=asset('kasipaham.svg')?>" alt="kasipaham logo" height="32"></a>
     <ul class="navbar-nav nav-underline">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+          <a class="nav-link active" aria-current="page" href="<?=asset('./')?>">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Produk</a>

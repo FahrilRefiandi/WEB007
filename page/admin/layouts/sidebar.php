@@ -8,7 +8,7 @@
     <!-- Logo -->
     <a class="fw-semibold text-dual" href="<?=url('/admin/dashboard')?>">
       <span class="smini-visible">
-        <i class="fa fa-circle-notch text-primary"></i>
+        <i class="bi bi-layout-sidebar text-primary"></i>
       </span>
       <span class="smini-hide fs-5 tracking-wider">Kasipaham</span>
     </a>
