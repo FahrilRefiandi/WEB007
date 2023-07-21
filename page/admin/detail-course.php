@@ -98,20 +98,33 @@ GROUP BY bab;
 
             <!-- Page Content -->
             <div class="content content-boxed">
+
+                <!-- navbar -->
+                <nav class="navbar bg-transparent mb-3">
+                    <div class="container-fluid">
+                        <!-- <span class="navbar-brand">Course</span> -->
+                        <form class="d-flex input-group-sm" role="search" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+                <!-- navbar -->
+
                 <!-- Lessons -->
                 <div class="block block-rounded">
-                    <div class="block-content fs-sm">
-                        <!-- Introduction -->
-                        <?php 
-                        if(count($materi) == 0){
-                            echo '<div class="alert alert-danger">Belum ada pertemuan</div>';
+                    <div class="block-content fs-sm" id="containerDetailCourse">
+
+
+                        <?php
+                        if (count($materi) == 0) {
+                            echo '<div class="alert alert-danger">Belum ada</div>';
                         }
                         foreach ($materi as $key => $value) {
                             $materi[$key]['data'] = json_decode($value['data']); ?>
-                            <table class="table table-borderless table-vcenter">
+                            <table class="table table-borderless table-vcenter skeleton">
                                 <tbody>
                                     <tr class="table-active">
-
                                         <th colspan="2">Bab <?= $value['bab'] ?></th>
                                         <th class="text-end">
                                             <span class="text-muted dateTime"><?= $value['last_material'] ?></span>
@@ -120,16 +133,16 @@ GROUP BY bab;
                                     <?php
                                     $i = 1;
                                     foreach ($materi[$key]['data'] as $key2 => $pertemuan) { ?>
-                                        <tr>
+                                        <tr class="index">
                                             <td class="table-success text-center">
                                                 <?= $i++ ?>
                                             </td>
-                                            <td>
+                                            <td class="">
                                                 <a class="fw-medium" href="<?= url('/admin/meet?id=') . $pertemuan->id ?>">
                                                     <?= $pertemuan->title ?>
                                                 </a>
                                             </td>
-                                            <td class="text-end text-muted dateTime">
+                                            <td class="text-end text-muted dateTime ">
                                                 <?= $pertemuan->created_at ?>
                                             </td>
                                         </tr>
@@ -162,23 +175,24 @@ GROUP BY bab;
     <script>
         $(document).ready(function() {
             // input-search
-            $("#input-search").keyup(function() {
+            $("#input-search").on("input",function() {
+                
                 var value = $(this).val().toLowerCase();
-                $("#course .col-xl-3").each(function() {
+                $("table .index").each(function() {
                     var text = $(this).text().toLowerCase();
                     $(this).toggle(text.indexOf(value) > -1);
                 });
 
-                if ($("#course .col-xl-3:visible").length === 0) {
+                if ($("table .index:visible").length === 0) {
                     if ($("#no-result-alert").length === 0) {
-                        $("#course").append('<div id="no-result-alert" class="col-md-12"><div class="alert alert-danger">No result found</div></div>');
+                        $(".table-active").hide();
+                        $("#containerDetailCourse").append('<div id="no-result-alert" class="col-md-12"><div class="alert alert-danger">No result found</div></div>');
                     }
                 } else {
                     $("#no-result-alert").remove();
-                    $("#course .col-xl-3 a").addClass("bg-skeleton");
-                    $("#course .col-xl-3 a .fs-sm").addClass("skeleton");
-                    $("#course .col-xl-3 a div h4").addClass("skeleton");
-                    setTimeout(removeSekeleton, 2000);
+                    $(".table-active").show();
+                    $("table tr").addClass("skeleton");
+                    setTimeout(removeSekeleton, 500);
                 }
             });
         });
@@ -189,7 +203,7 @@ GROUP BY bab;
         }
 
         $("document").ready(function() {
-            setTimeout(removeSekeleton, 2000);
+            setTimeout(removeSekeleton, 500);
         });
 
         $('.dateTime').each(function() {
@@ -211,6 +225,7 @@ GROUP BY bab;
         });
     </script>
     <?php include($notif) ?>
+    
 </body>
 
 </html>
