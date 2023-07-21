@@ -64,4 +64,20 @@ class Database
         // Return the data as is if no database connection is available.
         return $data;
     }
+
+    public static function update($table,$request,$id){
+        $connection = self::connect();
+        $set = "";
+        foreach($request as $key=>$value){
+            $set .= "$key='$value',";
+        }
+        $set = rtrim($set,",");
+        $query = "UPDATE $table SET $set WHERE id='$id'";
+        $result = mysqli_query($connection,$query);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

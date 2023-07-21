@@ -60,3 +60,15 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.errors{
+    color: red;
+    font-size: 12px;
+}
+
+.tox-notifications-container{
+    /* hidden  selain menggunakan display*/
+    visibility: hidden;
+
+
+}
