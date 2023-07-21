@@ -17,6 +17,24 @@ require_once('layouts/template.php');
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Kasipaham <?= Session::auth()['name'] ?></title>
   <?php require($template['css']) ?>
+  <style>
+    .dropdown-menu li {
+      position: relative;
+      }
+      .dropdown-menu .dropdown-submenu {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: -7px;
+      }
+      .dropdown-menu .dropdown-submenu-left {
+      right: 100%;
+      left: auto;
+      }
+      .dropdown-menu > li:hover > .dropdown-submenu {
+      display: block;
+      }
+  </style>
 </head>
 
 <body>
@@ -84,7 +102,7 @@ require_once('layouts/template.php');
               </form>
             </div>
             <div class="button">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-sliders me-2"></i>
                 filter
               </button>
@@ -94,10 +112,10 @@ require_once('layouts/template.php');
                   <li><button type="submit" name="filter" value="desc" class="dropdown-item"><i class="bi bi-sort-alpha-down-alt me-2"></i>Urutkan Z-A</button></li>
                   <li>
                     <a class="dropdown-item" href="#"><i class="bi bi-binoculars me-2"></i>Tampilkan</a>
-                    <ul class="dropdown-menu dropdown-submenu">
-                      <li><a class="dropdown-item" href="#">Admin</a></li>
-                      <li><a class="dropdown-item" href="#">Student</a></li>
-                      <li><a class="dropdown-item" href="#">Mentor</a></li>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li><button class="dropdown-item" type="submit" name="filter" value="admin" href="#">Admin</button></li>
+                      <li><button class="dropdown-item" type="submit" name="filter" value="student" href="#">Student</button></li>
+                      <li><button class="dropdown-item" type="submit" name="filter" value="mentor" href="#">Mentor</button></li>
                     </ul>
                   </li>
                 </ul>
@@ -136,6 +154,12 @@ require_once('layouts/template.php');
                         $data = Database::getAll("SELECT * FROM users ORDER BY name ASC");
                       }elseif ($filter == "desc") {
                         $data = Database::getAll("SELECT * FROM users ORDER BY name DESC");
+                      }elseif ($filter == "admin") {
+                        $data = Database::getAll("SELECT * FROM users WHERE role='admin' ORDER BY name ASC");
+                      }elseif ($filter == "student") {
+                        $data = Database::getAll("SELECT * FROM users WHERE role='student' ORDER BY name ASC");
+                      }elseif ($filter == "mentor") {
+                        $data = Database::getAll("SELECT * FROM users WHERE role='mentor' ORDER BY name ASC");
                       }
                       
                     } else {
