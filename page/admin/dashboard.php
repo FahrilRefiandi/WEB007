@@ -3,6 +3,7 @@
 use Config\Database;
 use Config\Session;
 use Config\Storage;
+use Config\Locale;
 
 require_once(__DIR__ . "../../../config/config.php");
 middleware(["auth", "admin"]);
@@ -153,6 +154,9 @@ require_once('layouts/template.php');
 
 
   <?php require($template['js']) ?>
+
+  <?php include($notif)?>
+  
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script>

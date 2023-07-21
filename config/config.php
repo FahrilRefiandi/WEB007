@@ -3,6 +3,7 @@
 // use Config\Session;
 
 require_once("Validation.php");
+require_once("Locale.php");
 require_once("Database.php");
 require_once("Session.php");
 require_once("Storage.php");
@@ -10,10 +11,14 @@ require_once("Storage.php");
 require_once(__DIR__."/../controllers/AuthController.php");
 
 
+
+
+
 $base_url = "http://localhost/WEB007";
 
 $header = __DIR__ . "/../page/layouts/header.php";
 $footer = __DIR__ . "/../page/layouts/footer.php";
+$notif = __DIR__ . "/../page/notif.php";
 
 
 function asset($path)
