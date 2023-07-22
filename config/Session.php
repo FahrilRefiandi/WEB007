@@ -2,6 +2,11 @@
 namespace Config;
 
 class Session{
+    public static function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
     // auth session
     public static function auth($user=null){
         if (session_status() === PHP_SESSION_NONE && !isset($_SESSION)) {

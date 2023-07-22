@@ -63,7 +63,7 @@ if(isset($_POST['logout'])){
                   <p class="mb-0 text-muted fs-sm fw-medium"><?=Session::auth()['role']?></p>
                 </div>
                 <div class="p-2">
-                  <a class="dropdown-item d-flex align-items-center justify-content-left" href="javascript:void(0)">
+                  <a class="dropdown-item d-flex align-items-center justify-content-left" href="<?=url('/user/profile')?>">
                     <i class="bi bi-person-circle me-2"></i> 
                     <span class="fs-sm fw-medium">Profile</span>
                   </a>

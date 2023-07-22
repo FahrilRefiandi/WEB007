@@ -46,6 +46,36 @@ class Database
         return $rows;
     }
 
+    // Edit Data
+    public static function edit($request)
+    {
+            $user_id = Session::auth()['id'];
+            $query = "UPDATE users SET name = ?, email = ?, username = ?, phone_number = ?, password = ? WHERE id = ?";
+            if (!empty($request['password'])) {
+                $hashed_password = password_hash($request['password'], PASSWORD_DEFAULT);
+            } else {
+                $hashed_password = Session::auth()['password'];
+            }
+            $connection = self::connect();
+            $stmt = mysqli_prepare($connection, $query);
+            mysqli_stmt_bind_param($stmt, "sssssi", $request['name'], $request['email'], $request['username'], $request['phone_number'], $request['password'], $user_id);
+            $result = mysqli_stmt_execute($stmt);
+
+            if ($result) {
+                $auth_data = Session::auth();
+                $auth_data['name'] = $request['name'];
+                $auth_data['email'] = $request['email'];
+                $auth_data['username'] = $request['username'];
+                $auth_data['phone_number'] = $request['phone_number'];
+                Session::set('auth', $auth_data);
+                Session::session("success", "Edit success");
+                redirect("/admin/dashboard");
+            } else {
+                Session::session("error", "Edit failed");
+            }
+    }
+
+
     public static function getFirst($query)
     {
         $connection = self::connect();
