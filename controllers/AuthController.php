@@ -5,7 +5,7 @@ use Config\Locale;
 use Config\database;
 use Validation\Validation;
 use Config\Session;
-use Locale as GlobalLocale;
+
 
 class AuthController
 {

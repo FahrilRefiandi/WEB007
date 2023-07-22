@@ -184,7 +184,9 @@ require_once('layouts/template.php');
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script>
-  function handleSearch() {
+  
+
+  $("#page-header-search-input2").on("keyup", function() {
     var searchKeyword = document.getElementById('page-header-search-input2').value.toLowerCase();
     var rows = document.querySelectorAll('#user-table-body tr');
 
@@ -204,11 +206,9 @@ require_once('layouts/template.php');
         row.style.display = 'none';
       }
     });
-  }
+  });
 
-  document.getElementById('page-header-search-input2').addEventListener('input', handleSearch);
-
-  handleSearch();
+  
 </script>
 
 </body>

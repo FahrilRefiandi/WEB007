@@ -9,6 +9,7 @@ require_once("Session.php");
 require_once("Storage.php");
 // require_once(__DIR__ . "../../vendor/autoload.php");
 require_once(__DIR__."/../controllers/AuthController.php");
+require_once(__DIR__."/../controllers/CourseController.php");
 
 
 
