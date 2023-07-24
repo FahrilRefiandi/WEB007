@@ -71,9 +71,11 @@ if (isset($_POST['tambah'])) {
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
-                        <div class="text-end">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Data</button>
-                        </div>
+                        <div class="button">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Add Course
+                        </button>
                     </div>
                 </nav>
                 <!-- navbar -->

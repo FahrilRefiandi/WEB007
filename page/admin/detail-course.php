@@ -107,6 +107,22 @@ GROUP BY bab;
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
                             <button class="btn btn-outline-primary" type="submit">Search</button>
                         </form>
+                        <!-- Button buat update course [belum] -->
+                        <div class="button">
+                        <button class="btn btn-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Add Lesson
+                        </button>
+                        <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear-wide-connected"></i>
+                        </button>
+                        <form method="get">
+                            <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button type="submit" name="filter" value="update" class="dropdown-item"><i class="bi bi-pencil me-2"></i>Edit Course</button></li>
+                            <li><button type="submit" name="filter" value="del" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>
+                            </ul>
+                        </form>
+                        </div>
                     </div>
                 </nav>
                 <!-- navbar -->
@@ -129,6 +145,9 @@ GROUP BY bab;
                                         <th class="text-end">
                                             <span class="text-muted dateTime"><?= $value['last_material'] ?></span>
                                         </th>
+                                        <!-- Button Edit Lesson/Materi(muncul popup seperti add Course) -->
+                                        <th><button type="submit" name="filter" value="update" class="dropdown-item"><i class="bi bi-pencil"></i></button></th>
+
                                     </tr>
                                     <?php
                                     $i = 1;
