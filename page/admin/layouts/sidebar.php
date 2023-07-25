@@ -59,22 +59,22 @@
           </a>
           <ul class="nav-main-submenu">
           <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/admin/user')?>">
+              <a class="nav-main-link" href="<?=url('/admin/users')?>">
                 <span class="nav-main-link-name">Lihat Semua</span>
               </a>
             </li>
             <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_tiles.html">
+              <a class="nav-main-link" href="<?=url('/admin/users?filter=admin')?>">
                 <span class="nav-main-link-name">Admin</span>
               </a>
             </li>
             <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_users.html">
+              <a class="nav-main-link" href="<?=url('/admin/users?filter=mentor')?>">
                 <span class="nav-main-link-name">Mentor</span>
               </a>
             </li>
             <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_stats.html">
+              <a class="nav-main-link" href="<?=url('/admin/users?filter=student')?>">
                 <span class="nav-main-link-name">Student</span>
               </a>
             </li>

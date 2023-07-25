@@ -80,4 +80,14 @@ class Database
             return false;
         }
     }
+    public static function multiDelete($table,$id){
+        $connection = self::connect();
+        $query = "DELETE FROM $table WHERE id IN ($id)";
+        $result = mysqli_query($connection,$query);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

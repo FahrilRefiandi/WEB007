@@ -50,16 +50,7 @@
   }
   /* skeleton hover none */
     
-.course-description{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    font-size: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+
 
 .errors{
     color: red;

@@ -113,12 +113,16 @@ GROUP BY bab;
 
                 <!-- Lessons -->
                 <div class="block block-rounded">
+                    <div class="content-detail px-4 py-2">
+                        <h5>Description</h5>
+                        <?= $data['description'] ?>
+                    </div>
                     <div class="block-content fs-sm" id="containerDetailCourse">
 
 
                         <?php
                         if (count($materi) == 0) {
-                            echo '<div class="alert alert-danger">Belum ada</div>';
+                            echo '<div class="alert alert-danger">Belum ada materi</div>';
                         }
                         foreach ($materi as $key => $value) {
                             $materi[$key]['data'] = json_decode($value['data']); ?>
@@ -175,8 +179,8 @@ GROUP BY bab;
     <script>
         $(document).ready(function() {
             // input-search
-            $("#input-search").on("input",function() {
-                
+            $("#input-search").on("input", function() {
+
                 var value = $(this).val().toLowerCase();
                 $("table .index").each(function() {
                     var text = $(this).text().toLowerCase();
@@ -225,7 +229,7 @@ GROUP BY bab;
         });
     </script>
     <?php include($notif) ?>
-    
+
 </body>
 
 </html>
