@@ -5,7 +5,7 @@ use Config\Session;
 use Config\Storage;
 
 require_once(__DIR__ . "../../../config/config.php");
-middleware(["auth", "student"]);
+middleware(["auth", "mentor"]);
 require_once('layouts/template.php');
 $course=Database::getAll("
 SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learning_materials.created_at) AS last_material
@@ -87,7 +87,7 @@ GROUP BY course.id;
             ?>
             <!-- Course -->
             <div class="col-md-6 col-lg-4 col-xl-3">
-               <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?=url('/student/detail-course?id='.$cours['id'])?>">
+               <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?=url('/mentor/detail-course?id='.$cours['id'])?>">
                   <div class="block-content block-content-full text-center bg-city">
                       <div class="item item-2x item-circle bg-white-10 py-3 my-3 mx-auto">
                           <i class="fab fa-html5 fa-2x text-white-75"></i>
