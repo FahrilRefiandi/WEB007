@@ -39,24 +39,6 @@ if(isset($_POST['ids'])){
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Kasipaham <?= Session::auth()['name'] ?></title>
   <?php require($template['css']) ?>
-  <style>
-    .dropdown-menu li {
-      position: relative;
-      }
-      .dropdown-menu .dropdown-submenu {
-      display: none;
-      position: absolute;
-      left: 100%;
-      top: -7px;
-      }
-      .dropdown-menu .dropdown-submenu-left {
-      right: 100%;
-      left: auto;
-      }
-      .dropdown-menu > li:hover > .dropdown-submenu {
-      display: block;
-      }
-  </style>
 </head>
 
 <body>
@@ -116,22 +98,9 @@ if(isset($_POST['ids'])){
                 <i class="bi bi-trash me-2"></i>
                 Delete
               </button>
-<<<<<<< HEAD:page/admin/users.php
-=======
-              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <form method="get">
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><button type="submit" name="select" value="select" class="dropdown-item">Pilih</button></li>
-                  <li><button type="submit" name="select" value="select-all" class="dropdown-item">Pilih Semua</button></li>
-                  
-                </ul>
-              </form>
->>>>>>> c20b91e6be72ec56f70b070c5255e5ea0132a9d3:page/admin/user.php
             </div>
             <div class="button">
-              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-sliders me-2"></i>
                 filter
               </button>
@@ -141,10 +110,10 @@ if(isset($_POST['ids'])){
                   <li><button type="submit" name="filter" value="desc" class="dropdown-item"><i class="bi bi-sort-alpha-down-alt me-2"></i>Urutkan Z-A</button></li>
                   <li>
                     <a class="dropdown-item" href="#"><i class="bi bi-binoculars me-2"></i>Tampilkan</a>
-                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                      <li><button class="dropdown-item" type="submit" name="filter" value="admin" href="#">Admin</button></li>
-                      <li><button class="dropdown-item" type="submit" name="filter" value="student" href="#">Student</button></li>
-                      <li><button class="dropdown-item" type="submit" name="filter" value="mentor" href="#">Mentor</button></li>
+                    <ul class="dropdown-menu dropdown-submenu">
+                      <li><a class="dropdown-item" href="#">Admin</a></li>
+                      <li><a class="dropdown-item" href="#">Student</a></li>
+                      <li><a class="dropdown-item" href="#">Mentor</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -180,7 +149,6 @@ if(isset($_POST['ids'])){
                 </tr>
               </thead>
               <tbody id="user-table-body">
-<<<<<<< HEAD:page/admin/users.php
                 <?php
                 $counter = 1;
                 foreach ($data as $value) {
@@ -197,38 +165,6 @@ if(isset($_POST['ids'])){
                     <td><?= $value['role'] ?></td>
                   </tr>
                 <?php } ?>
-=======
-                <p><?php
-                    // filter 
-                    if (isset($_GET['filter'])) {
-                      $filter = $_GET['filter'];
-                      if ($filter == "asc") {
-                        $data = Database::getAll("SELECT * FROM users ORDER BY name ASC");
-                      }elseif ($filter == "desc") {
-                        $data = Database::getAll("SELECT * FROM users ORDER BY name DESC");
-                      }elseif ($filter == "admin") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='admin' ORDER BY name ASC");
-                      }elseif ($filter == "student") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='student' ORDER BY name ASC");
-                      }elseif ($filter == "mentor") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='mentor' ORDER BY name ASC");
-                      }
-                      
-                    } else {
-                      $data = Database::getAll('SELECT * FROM users');
-                    }
-                    
-                    $counter = 1;
-                    foreach ($data as $value) {
-                    ?>
-                    <tr>
-                      <td><?= $counter++ ?></td>
-                      <td><?= $value['name'] ?></td>
-                      <td><?= $value['username'] ?></td>
-                      <td><?= $value['role'] ?></td>
-                    </tr>
-                  <?php } ?>
->>>>>>> c20b91e6be72ec56f70b070c5255e5ea0132a9d3:page/admin/user.php
               </tbody>
             </table>
             </p>
