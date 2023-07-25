@@ -98,34 +98,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-main-item">
-          <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-          <i class="nav-main-link-icon bi bi-pc-display"></i>  
-            <span class="nav-main-link-name">Try Out</span>
-          </a>
-          <ul class="nav-main-submenu">
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_tiles.html">
-                <span class="nav-main-link-name">Tambah</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/admin/tryout')?>">
-                <span class="nav-main-link-name">Lihat</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_stats.html">
-                <span class="nav-main-link-name">Perbarui</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_blog.html">
-                <span class="nav-main-link-name">Hapus</span>
-              </a>
-            </li>
-          </ul>
-        </li>
+        
     </div>
     <!-- END Side Navigation -->
   </div>

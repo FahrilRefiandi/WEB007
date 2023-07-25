@@ -89,7 +89,7 @@ if (isset($_POST['edit'])) {
               <label for="floatingInput">No. Telepon</label>
             </div>
             <div class="form-floating">
-              <input class="form-control form-control-lg mb-3" type="password" placeholder="Password" aria-label=".form-control-lg example" name="password" value="<?=Session::auth()['password']?>" autofocus>
+              <input class="form-control form-control-lg mb-3" type="password" placeholder="Password" aria-label=".form-control-lg example" name="password" autofocus>
               <label for="floatingInput">Password</label>
             </div>
             <div class="button position-relative mx-auto justify-content-center">
