@@ -6,8 +6,10 @@ use Controllers\CourseController;
 use Validation\Validation;
 
 require_once(__DIR__ . "../../../config/config.php");
-middleware(["auth", "admin"]);
+middleware(["auth", "mentor"]);
 require_once('layouts/template.php');
+
+require_once(__DIR__ . "../../../config/config.php");
 $id = $_GET['id'];
 $data1 = Database::getFirst("
 SELECT course.*,
@@ -60,10 +62,10 @@ WHERE id = '$id';
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
-                                <a class="link-fx" href="<?= url('/admin/course') ?>">Courses</a>
+                                <a class="link-fx" href="<?= url('/mentor/course') ?>">Courses</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="<?= url('/admin/detail-course?id=' . $data1['id']) ?>"><?= $data1['course_title'] ?></a>
+                            <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $data1['id']) ?>"><?= $data1['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
                                 <?= $data2['title'] ?>
@@ -82,7 +84,7 @@ WHERE id = '$id';
 
                 <!-- Lessons -->
                 <div class="block block-rounded">
-                    <div class="block-content fs-sm p-5 justify-content-center" id="containerDetailMeet">
+                    <div class="container-fluid ratio ratio-16x9 fs-sm p-5 justify-content-center" id="containerDetailMeet">
                     <?= $data2['embed_video'] ?>
                     </div>
                     <div role="separator" class="dropdown-divider m-0"></div>

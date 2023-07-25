@@ -5,13 +5,13 @@ use Config\Session;
 use Controllers\CourseController;
 use Validation\Validation;
 
-require_once('layouts/template.php');
 require_once(__DIR__ . "../../../config/config.php");
+middleware(["auth", "admin"]);
+require_once('layouts/template.php');
 $id = $_GET['id'];
 $data = Database::getFirst("SELECT * FROM course WHERE id='$id'");
 $teacher = Database::getAll("SELECT * FROM users WHERE role='mentor'");
 $class = Database::getAll("SELECT * FROM class");
-middleware(['auth', 'admin']);
 
 if (isset($_POST['update'])) {
     CourseController::update($_POST, $id);

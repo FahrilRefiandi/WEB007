@@ -5,9 +5,10 @@ use Config\Session;
 use Controllers\CourseController;
 use Validation\Validation;
 
+require_once(__DIR__ . "../../../config/config.php");
+middleware(["auth", "admin"]);
 require_once('layouts/template.php');
 
-require_once(__DIR__ . "../../../config/config.php");
 $id = $_GET['id'];
 $data = Database::getFirst("
 SELECT course.*,

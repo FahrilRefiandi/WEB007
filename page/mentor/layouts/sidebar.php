@@ -6,7 +6,7 @@
   <!-- Side Header -->
   <div class="content-header">
     <!-- Logo -->
-    <a class="fw-semibold text-dual" href="<?=url('/student/dashboard')?>">
+    <a class="fw-semibold text-dual" href="<?=url('/mentor/dashboard')?>">
       <span class="smini-visible">
         <i class="fa fa-circle-notch text-primary"></i>
       </span>
@@ -40,13 +40,13 @@
     <div class="content-side">
       <ul class="nav-main">
         <li class="nav-main-item">
-          <a class="nav-main-link" href="<?=url('/student/dashboard')?>">
+          <a class="nav-main-link" href="<?=url('/mentor/dashboard')?>">
             <i class="nav-main-link-icon si si-speedometer"></i>
             <span class="nav-main-link-name">Dashboard</span>
           </a>
         </li>
         <li class="nav-main-item">
-          <a class="nav-main-link" href="<?=url('/student/course')?>">
+          <a class="nav-main-link" href="<?=url('/mentor/course')?>">
             <i class="nav-main-link-icon bi bi-book"></i>
             <span class="nav-main-link-name">Course</span>
           </a>
@@ -59,41 +59,13 @@
           </a>
           <ul class="nav-main-submenu">
             <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/student/course')?>">
+              <a class="nav-main-link" href="<?=url('/mentor/course')?>">
                 <span class="nav-main-link-name">Course</span>
               </a>
             </li>
             <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/student/materi')?>">
+              <a class="nav-main-link" href="<?=url('/mentor/materi')?>">
                 <span class="nav-main-link-name">Materi</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-main-item">
-          <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-          <i class="nav-main-link-icon bi bi-pc-display"></i>  
-            <span class="nav-main-link-name">Try Out</span>
-          </a>
-          <ul class="nav-main-submenu">
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_tiles.html">
-                <span class="nav-main-link-name">Tambah</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/student/tryout')?>">
-                <span class="nav-main-link-name">Lihat</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_stats.html">
-                <span class="nav-main-link-name">Perbarui</span>
-              </a>
-            </li>
-            <li class="nav-main-item">
-              <a class="nav-main-link" href="be_widgets_blog.html">
-                <span class="nav-main-link-name">Hapus</span>
               </a>
             </li>
           </ul>
