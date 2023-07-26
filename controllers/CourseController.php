@@ -43,7 +43,7 @@ class CourseController
         unset($request['tambah']);
 
         $validation = Validation::validate($request, [
-            "course_title" => "required|unique:course",
+            "course_title" => "required",
             "description" => "required",
             "teacher_id" => "required",
             "class" => "required",

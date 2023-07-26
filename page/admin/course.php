@@ -84,30 +84,28 @@ if (isset($_POST['tambah'])) {
                     <?php
                     foreach ($course as $cours) {
                     ?>
-                        <!-- Course -->
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <a class="block block-rounded block-link-pop h-100 mb-0 bg-skeleton" href="<?= url('/admin/detail-course?id=' . $cours['id']) ?>">
-                                <div class="block-content block-content-full text-center bg-city">
-                                    <div class="item item-2x item-circle bg-white-10 py-3 my-3 mx-auto">
-                                        <i class="fab fa-html5 fa-2x text-white-75"></i>
-                                    </div>
-                                    <div class="fs-sm text-white-75 skeleton">
-                                        <?= $cours['number_of_meetings'] ?> Materi &bull; Kelas <?= $cours['class'] ?>
-                                    </div>
-                                </div>
-                                <div class="block-content block-content-full">
-                                    <h4 class="h5 mb-1 skeleton">
-                                        <?= $cours['course_title'] ?> :
-                                        <small class="course-description">
-                                            <?= $cours['description'] ?>
-                                        </small>
 
-                                    </h4>
-                                    <div class="fs-sm text-muted skeleton last-material"><?= $cours['last_material'] ?></div>
-                                </div>
+                        <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="card bg-skeleton">
+                                <a href="<?= url('/admin/detail-course?id=' . $cours['id']) ?>" class="text-decoration-none text-dark">
+                                    <div class="block-content block-content-full text-center bg-city">
+                                        <div class="item item-2x item-circle bg-white-10 py-3 my-3 mx-auto">
+                                            <i class="fab fa-html5 fa-2x text-white-75"></i>
+                                        </div>
+                                        <div class="fs-sm text-white-75 skeleton">
+                                            <?= $cours['number_of_meetings'] ?> Materi &bull; Kelas <?= $cours['class'] ?>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title skeleton"><?= $cours['course_title'] ?></h5>
+                                        <div class="course-description skeleton"><?= $cours['description'] ?></div>
+                                    </div>
+                                    <div class="card-footer bg-transparent border-top-0">
+                                        <span class="last-material skeleton"><?= $cours['last_material'] ?></span>
+                                    </div>
+                            </div>
                             </a>
                         </div>
-                        <!-- END Course -->
                     <?php } ?>
 
 
@@ -170,7 +168,7 @@ if (isset($_POST['tambah'])) {
                         <div class="form-floating mb-3">
                             <select class="form-select" id="class" aria-label="Floating label select example" name="class">
                                 <?php
-                                if ($session=Session::old('class')) {
+                                if ($session = Session::old('class')) {
                                     $session = explode("|", $session);
                                     echo '<option selected value="' . $session[0] . '|' . $session[1] . '">' . $session[0] . ' ' . $session[1] . '</option>';
                                 } else {
@@ -202,7 +200,7 @@ if (isset($_POST['tambah'])) {
     </div>
 
 
-    
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script>
@@ -245,6 +243,17 @@ if (isset($_POST['tambah'])) {
             if (date == "Invalid date") {
                 $(this).text("No material yet");
             }
+        });
+
+        $(".course-description").each(function() {
+            var text = $(this).text().trim();
+            text = text.replace(/<[^>]*>/g, '');
+            
+            if (text.length > 100) {
+                text = text.substring(0, 100);
+                text = text + "...";
+            }
+            $(this).text(text);
         });
     </script>
 

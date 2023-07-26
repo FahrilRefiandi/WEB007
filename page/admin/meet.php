@@ -9,25 +9,13 @@ require_once(__DIR__ . "../../../config/config.php");
 middleware(["auth", "admin"]);
 require_once('layouts/template.php');
 $id = $_GET['id'];
-$data1 = Database::getFirst("
-SELECT course.*,
-       COUNT(learning_materials.id) AS number_of_meetings,
-       COUNT(DISTINCT courses_taken.course_id) AS taken,
-       MAX(learning_materials.created_at) AS last_material
-FROM course
-LEFT JOIN learning_materials ON course.id = learning_materials.course_id
-LEFT JOIN courses_taken ON course.id = courses_taken.course_id
-WHERE course.id = '$id'
-GROUP BY course.id;
-");
-$data2 = Database::getFirst("
+$data = Database::getFirst("
 SELECT * FROM learning_materials
 WHERE id = '$id';
 ");
+var_dump($data);
 
 ?>
-
-
 <!doctype html>
 <html lang="en">
 
@@ -52,6 +40,19 @@ WHERE id = '$id';
 
         <!-- Main Container -->
         <main id="main-container">
+            <!-- Hero Content -->
+            <div class="bg-image" style="background-image: url('assets/media/various/promo-code.png');">
+                <div class="bg-primary-dark-op">
+                    <div class="content content-full text-center py-7 pb-5">
+                        <h1 class="h2 text-white mb-2">
+                            <?= $data['title'] ?>
+                        </h1>
+                        <h2 class="h4 fw-normal text-white-75">
+                            Oleh <?= $data['teacher_name'] ?>
+                        </h2>
+                    </div>
+                </div>
+            </div>
             <!-- END Hero Content -->
 
             <!-- Navigation -->
@@ -60,13 +61,13 @@ WHERE id = '$id';
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
-                                <a class="link-fx" href="<?= url('/admin/course') ?>">Courses</a>
+                                <a class="link-fx" href="<?= url('/admin/course') ?>">Course</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a class="link-fx" href="<?= url('/admin/detail-course?id=') . $data['course_id']  ?>"><?= $data['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="<?= url('/admin/detail-course?id=' . $data1['id']) ?>"><?= $data1['course_title'] ?></a>
-                            </li>
-                            <li class="breadcrumb-item" aria-current="page">
-                                <?= $data2['title'] ?>
+                                <?= $data['title'] ?>
                             </li>
                         </ol>
                     </nav>
@@ -77,47 +78,38 @@ WHERE id = '$id';
             <!-- Page Content -->
             <div class="content content-boxed">
 
-                <!-- navbar -->
-                <!-- navbar -->
-
-                <!-- Lessons -->
+                <!-- Lesson -->
+                <!-- Syntax Highlighting functionality is initialized in Helpers.jsHighlightjs() -->
+                <!-- For more info and examples you can check out https://highlightjs.org/usage/ -->
                 <div class="block block-rounded">
-                    <div class="block-content fs-sm p-5 justify-content-center" id="containerDetailMeet">
-                    <?= $data2['embed_video'] ?>
-                    </div>
-                    <div role="separator" class="dropdown-divider m-0"></div>
-                    <div class="container bg-body-extra-light px-5 py-3">
-                    <?= $data2['description'] ?>
+                    <div class="block-content">
+                        <h3><?= $data['title'] ?></h3>
+                        <div class="meet-content">
+                            <?= $data['description'] ?>
+                        </div>
                     </div>
                 </div>
-                <!-- END Lessons -->
+                <!-- END Lesson -->
+
             </div>
             <!-- END Page Content -->
+
+            <!-- Get Started -->
+            <div class="bg-body-dark">
+                <div class="content content-full text-center py-6">
+                    <h3 class="h4 mb-4">
+                        Subscribe today and learn HTML5 in under 3 hours.
+                    </h3>
+                    <a class="btn btn-primary px-4 py-2" href="javascript:void(0)">Subscribe from $9/month</a>
+                </div>
+            </div>
+            <!-- END Get Started -->
         </main>
         <!-- END Main Container -->
 
 
-        <?php require($template['footer']) ?>
-    </div>
-    <!-- END Page Container -->
+        <?php include($notif) ?>
 
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-    <?php require($template['js']) ?>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
-
-    <script>
-        tinymce.init({
-            selector: 'textarea'
-        });
-    </script>
-    <?php include($notif) ?>
-    
 </body>
 
 </html>

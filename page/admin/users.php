@@ -2,11 +2,33 @@
 
 use Config\Database;
 use Config\Session;
-use Config\Storage;
+
 
 require_once(__DIR__ . "../../../config/config.php");
+
 middleware(["auth", "admin"]);
+
 require_once('layouts/template.php');
+// get param filter
+if (isset($_GET['filter'])) {
+  $filter = $_GET['filter'];
+  if ($filter == "admin") {
+    $data = Database::getAll("SELECT * FROM users WHERE role = 'admin'");
+  } elseif ($filter == "mentor") {
+    $data = Database::getAll("SELECT * FROM users WHERE role = 'mentor'");
+  } elseif ($filter == "student") {
+    $data = Database::getAll("SELECT * FROM users WHERE role = 'student'");
+  }
+} else {
+  $data = Database::getAll('SELECT * FROM users');
+}
+
+if(isset($_POST['ids'])){
+  if(Database::multiDelete("users", $_POST['ids'])){
+    Session::session('success', 'Data berhasil dihapus');
+    redirect('/admin/users');
+  }
+}
 ?>
 
 <!doctype html>
@@ -17,24 +39,6 @@ require_once('layouts/template.php');
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Kasipaham <?= Session::auth()['name'] ?></title>
   <?php require($template['css']) ?>
-  <style>
-    .dropdown-menu li {
-      position: relative;
-      }
-      .dropdown-menu .dropdown-submenu {
-      display: none;
-      position: absolute;
-      left: 100%;
-      top: -7px;
-      }
-      .dropdown-menu .dropdown-submenu-left {
-      right: 100%;
-      left: auto;
-      }
-      .dropdown-menu > li:hover > .dropdown-submenu {
-      display: block;
-      }
-  </style>
 </head>
 
 <body>
@@ -51,6 +55,10 @@ require_once('layouts/template.php');
 
     <!-- Main Container -->
     <main id="main-container">
+
+    <form method="post" id="delete">
+      <input type="hidden" name="ids" id="idDelete">
+    </form>
       <!-- Hero -->
       <div class="bg-body-light">
         <div class="content content-full">
@@ -86,23 +94,13 @@ require_once('layouts/template.php');
               Data User
             </h3>
             <div class="btn-group me-2">
-              <button class="btn btn-danger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-danger" type="button" id="btnDelete">
                 <i class="bi bi-trash me-2"></i>
                 Delete
               </button>
-              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <form method="get">
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><button type="submit" name="select" value="select" class="dropdown-item">Pilih</button></li>
-                  <li><button type="submit" name="select" value="select-all" class="dropdown-item">Pilih Semua</button></li>
-                  
-                </ul>
-              </form>
             </div>
             <div class="button">
-              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-sliders me-2"></i>
                 filter
               </button>
@@ -112,10 +110,10 @@ require_once('layouts/template.php');
                   <li><button type="submit" name="filter" value="desc" class="dropdown-item"><i class="bi bi-sort-alpha-down-alt me-2"></i>Urutkan Z-A</button></li>
                   <li>
                     <a class="dropdown-item" href="#"><i class="bi bi-binoculars me-2"></i>Tampilkan</a>
-                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                      <li><button class="dropdown-item" type="submit" name="filter" value="admin" href="#">Admin</button></li>
-                      <li><button class="dropdown-item" type="submit" name="filter" value="student" href="#">Student</button></li>
-                      <li><button class="dropdown-item" type="submit" name="filter" value="mentor" href="#">Mentor</button></li>
+                    <ul class="dropdown-menu dropdown-submenu">
+                      <li><a class="dropdown-item" href="#">Admin</a></li>
+                      <li><a class="dropdown-item" href="#">Student</a></li>
+                      <li><a class="dropdown-item" href="#">Mentor</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -139,6 +137,11 @@ require_once('layouts/template.php');
             <table class="table table-hover table-striped">
               <thead class="table-dark">
                 <tr>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                    </div>
+                  </td>
                   <td>No</td>
                   <td>Nama</td>
                   <td>Username</td>
@@ -146,36 +149,22 @@ require_once('layouts/template.php');
                 </tr>
               </thead>
               <tbody id="user-table-body">
-                <p><?php
-                    // filter 
-                    if (isset($_GET['filter'])) {
-                      $filter = $_GET['filter'];
-                      if ($filter == "asc") {
-                        $data = Database::getAll("SELECT * FROM users ORDER BY name ASC");
-                      }elseif ($filter == "desc") {
-                        $data = Database::getAll("SELECT * FROM users ORDER BY name DESC");
-                      }elseif ($filter == "admin") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='admin' ORDER BY name ASC");
-                      }elseif ($filter == "student") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='student' ORDER BY name ASC");
-                      }elseif ($filter == "mentor") {
-                        $data = Database::getAll("SELECT * FROM users WHERE role='mentor' ORDER BY name ASC");
-                      }
-                      
-                    } else {
-                      $data = Database::getAll('SELECT * FROM users');
-                    }
-                    
-                    $counter = 1;
-                    foreach ($data as $value) {
-                    ?>
-                    <tr>
-                      <td><?= $counter++ ?></td>
-                      <td><?= $value['name'] ?></td>
-                      <td><?= $value['username'] ?></td>
-                      <td><?= $value['role'] ?></td>
-                    </tr>
-                  <?php } ?>
+                <?php
+                $counter = 1;
+                foreach ($data as $value) {
+                ?>
+                  <tr>
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input selectedId" name="id[]" type="checkbox" value="<?= $value['id'] ?>">
+                      </div>
+                    </td>
+                    <td><?= $counter++ ?></td>
+                    <td><?= $value['name'] ?></td>
+                    <td><?= $value['username'] ?></td>
+                    <td><?= $value['role'] ?></td>
+                  </tr>
+                <?php } ?>
               </tbody>
             </table>
             </p>
@@ -196,32 +185,83 @@ require_once('layouts/template.php');
   <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
   <script>
-  function handleSearch() {
-    var searchKeyword = document.getElementById('page-header-search-input2').value.toLowerCase();
-    var rows = document.querySelectorAll('#user-table-body tr');
+    function handleSearch() {
+      var searchKeyword = document.getElementById('page-header-search-input2').value.toLowerCase();
+      var rows = document.querySelectorAll('#user-table-body tr');
 
-    rows.forEach(function(row) {
-      var dataCells = row.querySelectorAll('td');
-      var matchFound = false;
+      rows.forEach(function(row) {
+        var dataCells = row.querySelectorAll('td');
+        var matchFound = false;
 
-      dataCells.forEach(function(cell) {
-        if (cell.textContent.toLowerCase().includes(searchKeyword)) {
-          matchFound = true;
+        dataCells.forEach(function(cell) {
+          if (cell.textContent.toLowerCase().includes(searchKeyword)) {
+            matchFound = true;
+          }
+        });
+
+        if (matchFound) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
         }
       });
+    }
 
-      if (matchFound) {
-        row.style.display = '';
+    document.getElementById('page-header-search-input2').addEventListener('input', handleSearch);
+    handleSearch();
+
+    $('#checkAll').click(function() {
+      if (this.checked) {
+        $('.selectedId').each(function() {
+          this.checked = true;
+        });
       } else {
-        row.style.display = 'none';
+        $('.selectedId').each(function() {
+          this.checked = false;
+        });
       }
     });
-  }
 
-  document.getElementById('page-header-search-input2').addEventListener('input', handleSearch);
+    $('#btnDelete').click(function() {
+      var id = [];
+      $('.selectedId:checked').each(function() {
+        id.push($(this).val());
+      });
+      // use sweet alert
+      if (id.length > 0) {
 
-  handleSearch();
-</script>
+        Swal.fire({
+          title: 'Apakah kamu yakin?',
+          text: "Data yang anda pilih akan dihapus secara permanen!",
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, saya yakin'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $("#idDelete").val(id);
+            $("#delete").submit();
+            
+          } else {
+            Swal.fire(
+              'Dibatalkan!',
+              'Data anda tidak dihapus.',
+              'warning'
+            )
+          }
+        })
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Pilih data terlebih dahulu',
+        })
+      }
+    });
+  </script>
+  <?php include($notif)?>
 </body>
 
 </html>
