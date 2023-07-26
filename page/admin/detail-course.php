@@ -119,7 +119,7 @@ GROUP BY bab;
                         </button>
                         <form method="get">
                             <ul class="dropdown-menu dropdown-menu-end">
-                            <li><button type="submit" name="filter" value="update" class="dropdown-item"><i class="bi bi-pencil me-2"></i>Edit Course</button></li>
+                            <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Edit Course</a></li>
                             <li><button type="submit" name="filter" value="del" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>
                             </ul>
                         </form>

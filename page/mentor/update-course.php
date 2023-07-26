@@ -6,7 +6,7 @@ use Controllers\CourseController;
 use Validation\Validation;
 
 require_once(__DIR__ . "../../../config/config.php");
-middleware(["auth", "admin"]);
+middleware(["auth", "mentor"]);
 require_once('layouts/template.php');
 $id = $_GET['id'];
 $data = Database::getFirst("SELECT * FROM course WHERE id='$id'");
@@ -49,7 +49,7 @@ if (isset($_POST['update'])) {
                     <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
                         <div class="flex-grow-1">
                             <h1 class="h3 fw-bold mb-1">
-                                Edit Course
+                                Update Course
                             </h1>
                             <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                                 <?=$data['course_title']?>
@@ -58,10 +58,13 @@ if (isset($_POST['update'])) {
                         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-alt">
                                 <li class="breadcrumb-item">
-                                    <a class="link-fx" href="javascript:void(0)">Admin</a>
+                                    <a class="link-fx" href="<?=url('/mentor/dashboard')?>">Mentor</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a class="link-fx" href="javascript:void(0)">Course</a>
+                                    <a class="link-fx" href="<?=url('/mentor/course')?>">Courses</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a class="link-fx" href="<?=url('/mentor/detail-course?id=' . $data['id'])?>"><?=$data['course_title']?></a>
                                 </li>
                                 <li class="breadcrumb-item" aria-current="page">
                                     Update Course

@@ -23,8 +23,10 @@ WHERE course.id = '$id'
 GROUP BY course.id;
 ");
 $data2 = Database::getFirst("
-SELECT * FROM learning_materials
-WHERE id = '$id';
+SELECT learning_materials.*, course.course_title
+FROM learning_materials
+LEFT JOIN course ON learning_materials.course_id = course.id
+WHERE learning_materials.id = '$id';
 ");
 
 ?>
@@ -62,10 +64,13 @@ WHERE id = '$id';
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
+                                <a class="link-fx" href="<?= url('/mentor/dashboard') ?>">Mentor</a>
+                            </li>
+                            <li class="breadcrumb-item">
                                 <a class="link-fx" href="<?= url('/mentor/course') ?>">Courses</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $data1['id']) ?>"><?= $data1['course_title'] ?></a>
+                            <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $data2['course_id']) ?>"><?= $data2['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
                                 <?= $data2['title'] ?>

@@ -6,15 +6,16 @@ use Controllers\CourseController;
 use Validation\Validation;
 
 require_once(__DIR__ . "../../../config/config.php");
-middleware(["auth", "admin"]);
+middleware(["auth", "mentor"]);
 require_once('layouts/template.php');
 $id = $_GET['id'];
 $data = Database::getFirst("SELECT * FROM course WHERE id='$id'");
 $teacher = Database::getAll("SELECT * FROM users WHERE role='mentor'");
 $class = Database::getAll("SELECT * FROM class");
+$materi = Database::getFirst("SELECT * FROM learning_materials WHERE id='$id'");
 
 if (isset($_POST['update'])) {
-    CourseController::update($_POST, $id);
+    CourseController::updateLesson($_POST, $id);
   }
 ?>
 
@@ -49,22 +50,28 @@ if (isset($_POST['update'])) {
                     <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
                         <div class="flex-grow-1">
                             <h1 class="h3 fw-bold mb-1">
-                                Edit Course
+                                Update Lesson
                             </h1>
                             <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                                 <?=$data['course_title']?>
                             </h2>
+                            <h3 class="fs-base lh-base fw-medium text-muted truncate mb-0">
+                                <?=$materi['title']?>
+                            </h3>
                         </div>
                         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-alt">
                                 <li class="breadcrumb-item">
-                                    <a class="link-fx" href="javascript:void(0)">Admin</a>
+                                    <a class="link-fx" href="<?=url('/mentor/dashboard')?>">Mentor</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a class="link-fx" href="javascript:void(0)">Course</a>
+                                    <a class="link-fx" href="<?=url('/mentor/course')?>">Courses</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a class="link-fx" href="<?=url('/mentor/detail-course?id=' . $data['id'])?>"><?=$data['course_title']?></a>
                                 </li>
                                 <li class="breadcrumb-item" aria-current="page">
-                                    Update Course
+                                    Update Lesson
                                 </li>
                             </ol>
                         </nav>
@@ -92,37 +99,21 @@ if (isset($_POST['update'])) {
                                 <label for="title" class="form-label">Course Title</label>
                                 <input type="text" class="form-control" id="course-title" name="course_title" value="<?=$data['course_title']?>">
                             </div>
-                            <div class="mb-3">
-                                <label for="teacher" class="form-label">Teacher</label>
-                                <select class="form-select" aria-label="Default select example" name="teacher_id">
-                                    <option selected>Select Teacher</option>
-                                    <?php
-                                    foreach ($teacher as $t) {
-                                    ?>
-                                        <option value="<?= $t['id'] ?>"><?= $t['name'] ?></option>
-                                    <?php } ?>
-                                </select>
 
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Lesson Title</label>
+                                <input type="text" class="form-control" id="title" name="title" value="<?=$materi['title']?>">
                             </div>
 
                             <div class="mb-3">
-                                <label for="class" class="form-label">Class</label>
-                                <select class="form-select" aria-label="Default select example" name="class">
-                                    <option selected>Select Class</option>
-                                    <?php
-                                    foreach ($class as $t) {
-                                    ?>
-                                        <option value="<?= $t['class'] ?>|<?= $t['major'] ?>"><?= $t['class'] ?> <?= $t['major'] ?></option>
-                                    <?php } ?>
-                                </select>
+                                <label for="description" class="form-label">Description</label> 
+                                <textarea name="description"  class="form-control" id="basic-example" cols="30" rows="10"><?=$materi['description']?></textarea>
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                
-                                <textarea name="description"  class="form-control" id="basic-example" cols="30" rows="10"><?=$data['description']?></textarea>
+                                <label for="title" class="form-label">Bab</label>
+                                <input type="text" class="form-control" id="bab" name="bab" value="<?=$materi['bab']?>">
                             </div>
-
                             
                             <button type="submit" name="update" class="btn btn-primary my-3">Submit</button>
                         </form>
