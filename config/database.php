@@ -120,4 +120,15 @@ class Database
             return false;
         }
     }
+
+    public static function delete($table,$request){
+        $connection = self::connect();
+        $query = "DELETE FROM $table WHERE id='$request'";
+        $result = mysqli_query($connection,$query);
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

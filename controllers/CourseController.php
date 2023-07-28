@@ -154,4 +154,12 @@ class CourseController
     }
     
 
+    public static function delete($id)
+    {
+        $course = Database::getFirst("SELECT course_title FROM course WHERE id='$id'");
+        Database::delete("course", $id);
+        Session::session("success", "Data $course[course_title] berhasil dihapus");
+        redirect("/admin/course");
+    }
+
 }

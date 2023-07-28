@@ -13,7 +13,15 @@ $data = Database::getFirst("
 SELECT * FROM learning_materials
 WHERE id = '$id';
 ");
-var_dump($data);
+
+$course = Database::getFirst("
+SELECT course.*,users.name FROM course
+LEFT JOIN users ON course.teacher_id = users.id
+WHERE course.id = '$data[course_id]';
+");
+
+// var_dump($data);
+// die;
 
 ?>
 <!doctype html>
@@ -48,7 +56,7 @@ var_dump($data);
                             <?= $data['title'] ?>
                         </h1>
                         <h2 class="h4 fw-normal text-white-75">
-                            Oleh <?= $data['teacher_name'] ?>
+                            Oleh <?= $course['name'] ?>
                         </h2>
                     </div>
                 </div>
@@ -64,7 +72,7 @@ var_dump($data);
                                 <a class="link-fx" href="<?= url('/admin/course') ?>">Course</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a class="link-fx" href="<?= url('/admin/detail-course?id=') . $data['course_id']  ?>"><?= $data['course_title'] ?></a>
+                                <a class="link-fx" href="<?= url('/admin/detail-course?id=') . $data['course_id']  ?>"><?= $course['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
                                 <?= $data['title'] ?>
@@ -85,6 +93,9 @@ var_dump($data);
                     <div class="block-content">
                         <h3><?= $data['title'] ?></h3>
                         <div class="meet-content">
+                            <div class="embed-video">
+                                <?= $data['embed_video'] ?>
+                            </div>
                             <?= $data['description'] ?>
                         </div>
                     </div>
