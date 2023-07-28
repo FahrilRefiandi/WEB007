@@ -83,3 +83,33 @@ body{
     color: red;
     font-size: 12px;
 }
+.form-role{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.form-role input{
+    opacity: 0;
+}
+.form-role label{
+    cursor: pointer;
+    border: 1px solid #0096C7;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #0096C7;
+    font-weight: 500;
+    width: 50%;
+    text-align: center;
+}
+/* radio  */
+.form-role input:checked + label{
+    background-color: #0096C7;
+    color: #fff;
+}
+.row-form-role{
+    background-color: #F5F5F5;
+    /* rounded 10px */
+    border-radius: 10px;
+}
