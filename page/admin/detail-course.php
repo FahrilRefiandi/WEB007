@@ -35,10 +35,9 @@ FROM learning_materials
 WHERE course_id = '$id'
 GROUP BY bab;
 ");
-
-
-
-
+if (isset($_POST['tambah'])) {
+    CourseController::saveLesson($_POST);
+}
 ?>
 
 <!doctype html>
@@ -49,6 +48,7 @@ GROUP BY bab;
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Kasipaham <?= Session::auth()['name'] ?></title>
     <?php require($template['css']) ?>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 
 <body>
@@ -86,6 +86,9 @@ GROUP BY bab;
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
+                                <a class="link-fx" href="<?=url('/admin/dashboard')?>">admin</a>
+                            </li>
+                            <li class="breadcrumb-item">
                                 <a class="link-fx" href="<?= url('/admin/course') ?>">Courses</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
@@ -110,16 +113,20 @@ GROUP BY bab;
                         </form>
                         <!-- Button buat update course [belum] -->
                         <div class="button">
-                        <button class="btn btn-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button class="btn btn-danger me-2" type="button" id="btnDelete">
+                            <i class="bi bi-trash me-2"></i>
+                            Delete
+                        </button>   
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addLessonModal" data-course-id="<?= $data['id'] ?>" data-course-title="<?= $data['course_title'] ?>">
                             <i class="bi bi-plus-circle me-2"></i>
-                            Add Lesson
+                            Add
                         </button>
                         <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-gear-wide-connected"></i>
                         </button>
                         <form method="get">
                             <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Edit Course</a></li>
+                            <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Update Course</a></li>
                             <li><button type="submit" name="filter" value="del" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>
                             </ul>
                         </form>
@@ -130,16 +137,12 @@ GROUP BY bab;
 
                 <!-- Lessons -->
                 <div class="block block-rounded">
-                    <div class="content-detail px-4 py-2">
-                        <h5>Description</h5>
-                        <?= $data['description'] ?>
-                    </div>
                     <div class="block-content fs-sm" id="containerDetailCourse">
 
 
                         <?php
                         if (count($materi) == 0) {
-                            echo '<div class="alert alert-danger">Belum ada materi</div>';
+                            echo '<div class="alert alert-danger">Belum ada</div>';
                         }
                         foreach ($materi as $key => $value) {
                             $materi[$key]['data'] = json_decode($value['data']); ?>
@@ -150,8 +153,6 @@ GROUP BY bab;
                                         <th class="text-end">
                                             <span class="text-muted dateTime"><?= $value['last_material'] ?></span>
                                         </th>
-                                        <!-- Button Edit Lesson/Materi(muncul popup seperti add Course) -->
-                                        <th><button type="submit" name="filter" value="update" class="dropdown-item"><i class="bi bi-pencil"></i></button></th>
 
                                     </tr>
                                     <?php
@@ -161,13 +162,16 @@ GROUP BY bab;
                                             <td class="table-success text-center">
                                                 <?= $i++ ?>
                                             </td>
-                                            <td class="">
+                                            <td class="text-align-center">
+                                                <!-- Button Edit Lesson/Materi-->
+                                                <a type="submit" name="filter" value="update" class="btn btn-outline-secondary me-2" href="<?= url('/admin/update-lesson?id=' . $data['id']) ?>"><i class="bi bi-pencil"></i></a>
                                                 <a class="fw-medium" href="<?= url('/admin/meet?id=') . $pertemuan->id ?>">
                                                     <?= $pertemuan->title ?>
                                                 </a>
                                             </td>
                                             <td class="text-end text-muted dateTime ">
                                                 <?= $pertemuan->created_at ?>
+
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -183,6 +187,52 @@ GROUP BY bab;
             <!-- END Page Content -->
         </main>
         <!-- END Main Container -->
+        <!-- Modal untuk menambahkan materi baru (addLessonModal) -->
+        <div class="modal fade" id="addLessonModal" tabindex="-1" aria-labelledby="addLessonModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addLessonModalLabel">Add New Lesson (Materi)</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post"> <!-- Perbaiki atribut action untuk menentukan skrip penyimpanan data -->
+                        <div class="modal-body">
+                            <ul class="errors">
+                                <?php
+                                if ($errors = Validation::errors()) {
+                                    foreach ($errors as $error) {
+                                        echo "<li>$error</li>";
+                                    }
+                                }
+                                ?>
+                            </ul>
+                            <!-- Input fields untuk mengisi data -->
+                            <input type="hidden" name="course_id" value="<?= $data['id'] ?>">
+                            <div class="mb-3">
+                                <label for="lessonTitle" class="form-label">Judul Materi</label>
+                                <input type="text" class="form-control" id="lessonTitle" name="lesson_title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lessonVideo" class="form-label">Embed Video (YouTube Link)</label>
+                                <input type="text" class="form-control" id="lessonVideo" name="embed_video">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lessonDescription" class="form-label">Deskripsi</label>
+                                <textarea class="form-control" id="lessonDescription" name="description" rows="5"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lessonBab" class="form-label">Bab (Lesson Number)</label>
+                                <input type="number" class="form-control" id="lessonBab" name="bab">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="tambah" class="btn btn-primary me-2">Save Lesson</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
         <?php require($template['footer']) ?>
@@ -195,12 +245,24 @@ GROUP BY bab;
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#addLessonModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var courseId = button.data('course-id'); // Extract info from data-* attributes
+                var courseTitle = button.data('course-title');
+                var modal = $(this);
+                modal.find('.modal-title').text('Add New Lesson for Course: ' + courseTitle);
+                modal.find('#lessonCourseId').val(courseId);
+            });
+        });
+    </script>
     <?php require($template['js']) ?>
     <script>
         $(document).ready(function() {
             // input-search
-            $("#input-search").on("input", function() {
-
+            $("#input-search").on("input",function() {
+                
                 var value = $(this).val().toLowerCase();
                 $("table .index").each(function() {
                     var text = $(this).text().toLowerCase();
@@ -249,7 +311,7 @@ GROUP BY bab;
         });
     </script>
     <?php include($notif) ?>
-
+    
 </body>
 
 </html>

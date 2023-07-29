@@ -1,0 +1,152 @@
+<?php
+
+use Config\Database;
+use Config\Session;
+use Controllers\CourseController;
+use Validation\Validation;
+
+require_once(__DIR__ . "../../../config/config.php");
+middleware(["auth", "mentor"]);
+require_once('layouts/template.php');
+$course = Database::getAll("
+SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learning_materials.created_at) AS last_material
+FROM course
+LEFT JOIN learning_materials ON course.id = learning_materials.course_id
+GROUP BY course.id;
+");
+$teachers = Database::getAll("SELECT * FROM users WHERE role='mentor'");
+$class = Database::getAll("SELECT * FROM class");
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Kasipaham <?= Session::auth()['name'] ?></title>
+    <?php require($template['css']) ?>
+    <?php require($template['js']) ?>
+</head>
+
+<body>
+
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
+        <!-- Side Overlay-->
+        <?php require($template['sidebar']) ?>
+
+        <!-- END Sidebar -->
+
+        <!-- Header -->
+        <?php require($template['header']) ?>
+        <!-- END Header -->
+        <!-- Main Container -->
+        <!-- Main Container -->
+        <main id="main-container">
+            <!-- Hero Content -->
+            <div class="bg-primary-dark">
+                <div class="content content-full text-center pt-7 pb-5">
+                    <h1 class="h2 text-white mb-2">
+                        Course Development System
+                    </h1>
+                    <h2 class="h4 fw-normal text-white-75">
+                        Laman Informasi Materi
+                    </h2>
+                </div>
+            </div>
+            <!-- END Hero Content -->
+
+            <!-- Page Content -->
+            <div class="content content-boxed">
+                <!-- navbar -->
+                <nav class="navbar bg-transparent">
+                    <div class="container-fluid">
+                        <!-- <span class="navbar-brand">Course</span> -->
+                        <form class="d-flex input-group-sm" role="search" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input-search" name="search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+                <!-- navbar -->
+
+                <!-- Lesson -->
+
+            </div>
+            <!-- END Page Content -->
+        </main>
+
+        <!-- END Main Container -->
+
+        <?php require($template['footer']) ?>
+    </div>
+    <!-- END Page Container -->
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // input-search
+            $("#input-search").keyup(function() {
+                var value = $(this).val().toLowerCase();
+                $("#course .col-xl-3").each(function() {
+                    var text = $(this).text().toLowerCase();
+                    $(this).toggle(text.indexOf(value) > -1);
+                });
+
+                if ($("#course .col-xl-3:visible").length === 0) {
+                    if ($("#no-result-alert").length === 0) {
+                        $("#course").append('<div id="no-result-alert" class="col-md-12"><div class="alert alert-danger">No result found</div></div>');
+                    }
+                } else {
+                    $("#no-result-alert").remove();
+                    $("#course .col-xl-3 a").addClass("bg-skeleton");
+                    $("#course .col-xl-3 a .fs-sm").addClass("skeleton");
+                    $("#course .col-xl-3 a div h4").addClass("skeleton");
+                    setTimeout(removeSekeleton, 2000);
+                }
+            });
+        });
+
+        function removeSekeleton() {
+            $(".skeleton").removeClass("skeleton");
+            $(".bg-skeleton").removeClass("bg-skeleton");
+        }
+
+        $("document").ready(function() {
+            setTimeout(removeSekeleton, 2000);
+        });
+
+        $('.last-material').each(function() {
+            var date = $(this).text();
+            var date = moment(date, "YYYY-MM-DD HH:mm:ss").fromNow();
+            $(this).text(date);
+            if (date == "Invalid date") {
+                $(this).text("No material yet");
+            }
+        });
+
+        $(".course-description").each(function() {
+            var text = $(this).text().trim();
+            text = text.replace(/<[^>]*>/g, '');
+            
+            if (text.length > 100) {
+                text = text.substring(0, 100);
+                text = text + "...";
+            }
+            $(this).text(text);
+        });
+    </script>
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+    </script>
+    <?php include($notif) ?>
+</body>
+
+</html>
