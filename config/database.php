@@ -58,7 +58,7 @@ class Database
             }
             $connection = self::connect();
             $stmt = mysqli_prepare($connection, $query);
-            mysqli_stmt_bind_param($stmt, "sssssi", $request['name'], $request['email'], $request['username'], $request['phone_number'], $request['password'], $user_id);
+            mysqli_stmt_bind_param($stmt, "sssssi", $request['name'], $request['email'], $request['username'], $request['phone_number'], $hashed_password, $user_id);
             $result = mysqli_stmt_execute($stmt);
 
             if ($result) {
