@@ -46,6 +46,12 @@
           </a>
         </li>
         <li class="nav-main-item">
+          <a class="nav-main-link" href="<?=url('/student/take-course')?>">
+            <i class="nav-main-link-icon bi bi-book"></i>
+            <span class="nav-main-link-name">Take Course</span>
+          </a>
+        </li>
+        <li class="nav-main-item">
           <a class="nav-main-link" href="<?=url('/student/course')?>">
             <i class="nav-main-link-icon bi bi-book"></i>
             <span class="nav-main-link-name">Course</span>

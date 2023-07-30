@@ -72,6 +72,12 @@ class Validation
                             $request[$key] = "0" . substr($request[$key], 2);
                         }
                         break;
+                    case "must":
+                        $must = explode(",", $ruleParts[1]);
+                        if (!in_array($request[$key], $must)) {
+                            $errors[$key][] = "$key tidak valid";
+                        }
+                        break;
                     default:
                         break;
                 }

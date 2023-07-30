@@ -22,10 +22,22 @@ LEFT JOIN courses_taken ON course.id = courses_taken.course_id
 WHERE course.id = '$id'
 GROUP BY course.id;
 ");
+
 $data2 = Database::getFirst("
 SELECT * FROM learning_materials
 WHERE id = '$id';
 ");
+
+$checkTaken= Database::getFirst("
+SELECT * FROM courses_taken
+WHERE course_id = '$data2[course_id]' AND user_id = '".Session::auth()['id']."';
+");
+if(!$checkTaken){
+    Session::session("success", "You must take this course first");
+    redirect("/student/detail-course?id=$data2[course_id]");
+}
+    
+
 
 ?>
 

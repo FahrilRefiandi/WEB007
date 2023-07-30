@@ -166,4 +166,30 @@ class CourseController
 
 
 
+    public static function delete($id)
+    {
+        $course = Database::getFirst("SELECT course_title FROM course WHERE id='$id'");
+        Database::delete("course", $id);
+        Session::session("success", "Data $course[course_title] berhasil dihapus");
+        redirect("/admin/course");
+    }
+
+
+    public static function takeCourse($request){
+        $valid=Validation::validate($request,[
+            "take_course"=>"required",
+        ]);
+
+        if($valid){
+            $user=Session::auth();
+            Database::insert("courses_taken",[
+                "user_id"=>$user['id'],
+                "course_id"=>$request['take_course'],
+                "created_at"=>$request['created_at'] = Locale::now(),
+            ]);
+            Session::session("success","Berhasil mengambil course");
+            redirect("/student/take-course");
+        }
+    }
+
 }

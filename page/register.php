@@ -45,6 +45,28 @@ middleware('guest');
     </ul>
     <form method="POST">
       <span class="errors"><?= Session::session('errors') ?></span>
+
+      <div class="row row-form-role">
+        <div class="col">
+          <div class="form-role">
+            <input type="radio" value="student" class="role" id="student" name="role" checked>
+            <label for="student">
+              
+              Student
+            </label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-role">
+            <input type="radio" value="mentor" class="role" id="mentor" name="role">
+            <label for="mentor">
+              Mentor
+            </label>
+          </div>
+        </div>
+      </div>
+
+
       <label class="form-label mb-2">Nama Lengkap</label>
       <div class="form-floating">
         <input class="form-control mb-3" type="text" placeholder="Nama Lengkap" aria-label=".form-control-lg example" name="name" value="<?= Session::old('name') ?>">

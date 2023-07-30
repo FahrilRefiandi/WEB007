@@ -38,6 +38,12 @@ GROUP BY bab;
 if (isset($_POST['tambah'])) {
     CourseController::saveLesson($_POST);
 }
+
+if(isset($_POST['delete'])){
+    CourseController::delete($id);
+}
+
+
 ?>
 
 <!doctype html>
@@ -124,7 +130,7 @@ if (isset($_POST['tambah'])) {
                         <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-gear-wide-connected"></i>
                         </button>
-                        <form method="get">
+                        <form method="POST">
                             <ul class="dropdown-menu dropdown-menu-end">
                             <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Update Course</a></li>
                             <li><button type="submit" name="filter" value="del" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>

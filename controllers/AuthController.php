@@ -35,19 +35,22 @@ class AuthController
 
     public static function register($request)
     {
+        
         unset($request['register']);
         $valid = Validation::validate($request, [
             "name" => "required|min:5|max:50",
             "email" => "required|email|unique:users",
             "username" => "required|unique:users|username",
             "phone_number" => "required|phone_number|unique:users|min:11|max:13",
-            "password" => "required|min:6|max:12"
+            "password" => "required|min:6|max:12",
+            "role" => "required|must:student,mentor"
         ]);
 
 
         if ($valid) {
             $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
             $request['created_at'] = Locale::now();
+            $request['role'] = $request['role'];
             Database::insert("users", $request);
             Session::session("success", "Register success");
             redirect("/login");

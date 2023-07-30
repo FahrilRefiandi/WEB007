@@ -58,8 +58,11 @@
 }
 
 .tox-notifications-container{
-    /* hidden  selain menggunakan display*/
     visibility: hidden;
+}
 
-
+.embed-video{
+  height: 500px;
+  margin-bottom: 30px;
+  width: 100%;
 }
