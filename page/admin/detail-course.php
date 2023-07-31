@@ -36,7 +36,7 @@ WHERE course_id = '$id'
 GROUP BY bab;
 ");
 
-if(isset($_POST['delete'])){
+if (isset($_POST['delete'])) {
     CourseController::delete($id);
 }
 
@@ -112,19 +112,21 @@ if(isset($_POST['delete'])){
                         </form>
                         <!-- Button buat update course [belum] -->
                         <div class="button">
-                        <button class="btn btn-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="bi bi-plus-circle me-2"></i>
-                            Add Lesson
-                        </button>
-                        <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-gear-wide-connected"></i>
-                        </button>
-                        <form method="POST">
-                            <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Edit Course</a></li>
-                            <li><button type="submit" name="delete" value="<?=$data['id']?>" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>
-                            </ul>
-                        </form>
+                            <button class="btn btn-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Add Lesson
+                            </button>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear-wide-connected"></i>
+                            </button>
+                            <form method="POST" id="formDelete">
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a type="submit" name="filter" value="update" class="dropdown-item" href="<?= url('/admin/update-course?id=' . $data['id']) ?>"><i class="bi bi-pencil me-2"></i>Edit Course</a></li>
+                                    <input type="hidden" name="delete" value="<?= $data['id'] ?>">
+                                    <input type="hidden" id="nameDelete" value="<?= $data['course_title'] ?>">
+                                    <li><button type="submit" class="dropdown-item"><i class="bi bi-trash me-2"></i>Hapus Course</button></li>
+                                </ul>
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -248,6 +250,31 @@ if(isset($_POST['delete'])){
     <script>
         tinymce.init({
             selector: 'textarea'
+        });
+    </script>
+
+    <script>
+        document.getElementById("formDelete").addEventListener("submit", function(e) {
+            var form = this;
+            e.preventDefault();
+            var name = document.getElementById("nameDelete").value;
+            Swal.fire({
+                title: "Yakin course akan dihapus ?",
+                text: `Sobat <?= Session::auth()['name'] ?> akan menghapus course ${name}`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya,hapus kursus!',
+                cancelButtonText: 'Tidak, batalkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (form && typeof form.submit === 'function') {
+                        form.submit();
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // If the user cancels, do nothing or perform any additional actions as needed
+                }
+            });
         });
     </script>
     <?php include($notif) ?>

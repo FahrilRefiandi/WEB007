@@ -15,6 +15,9 @@ WHERE courses_taken.user_id = " . Session::auth()['id'] . "
 GROUP BY course.id;
 ");
 
+var_dump($course);
+die;
+
 ?>
 
 <!doctype html>
