@@ -20,7 +20,7 @@ class CourseController
         // die;
 
         $validation = Validation::validate($post, [
-            "course_title" => "required|unique:course",
+            "course_title" => "required",
             "description" => "required",
             "teacher_id" => "required",
             "class" => "required",
@@ -123,6 +123,7 @@ class CourseController
         $validation = Validation::validate($post, [
             "course_title" => "required",
             "title" => "required",
+            "embed_video" => "required",
             "description" => "required",
             "bab" => "required",
         ]);
@@ -153,6 +154,17 @@ class CourseController
         }
     }
     
+    public static function getYouTubeIDFromEmbed($embedVideo)
+    {
+        preg_match('/youtube\.com\/embed\/([^"?]+)/', $embedVideo, $matches);
+        return isset($matches[1]) ? $matches[1] : '';
+    }
+    private static function getYouTubeLinkFromID($videoID)
+    {
+        return 'https://www.youtube.com/watch?v=' . $videoID;
+    }
+
+
 
     public static function delete($id)
     {

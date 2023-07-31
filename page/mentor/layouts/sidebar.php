@@ -64,7 +64,7 @@
               </a>
             </li>
             <li class="nav-main-item">
-              <a class="nav-main-link" href="<?=url('/mentor/materi')?>">
+              <a class="nav-main-link" href="<?=url('/mentor/lesson')?>">
                 <span class="nav-main-link-name">Materi</span>
               </a>
             </li>

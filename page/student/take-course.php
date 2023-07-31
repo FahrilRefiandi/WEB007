@@ -67,10 +67,10 @@ if (count($_POST) > 0) {
             <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
               <ol class="breadcrumb breadcrumb-alt">
                 <li class="breadcrumb-item">
-                  <a class="link-fx" href="javascript:void(0)">Dashboard</a>
+                  <a class="link-fx" href="<?= url('/student/dashboard') ?>">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
-                  Dashboard
+                  Take Course
                 </li>
               </ol>
             </nav>
