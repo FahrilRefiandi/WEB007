@@ -6,7 +6,7 @@ use Controllers\CourseController;
 use Validation\Validation;
 
 require_once(__DIR__ . "../../../config/config.php");
-middleware(["auth", "mentor"]);
+middleware(["auth", "admin"]);
 require_once('layouts/template.php');
 
 require_once(__DIR__ . "../../../config/config.php");
@@ -55,13 +55,13 @@ if (count($_POST) > 0) {
                     <nav aria-label="breadcrumb ">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
-                                <a class="link-fx" href="<?= url('/mentor/dashboard') ?>">Mentor</a>
+                                <a class="link-fx" href="<?= url('/admin/dashboard') ?>">Mentor</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a class="link-fx" href="<?= url('/mentor/course') ?>">Courses</a>
+                                <a class="link-fx" href="<?= url('/admin/course') ?>">Courses</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                                <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $course['id']) ?>"><?= $course['course_title'] ?></a>
+                                <a class="link-fx" href="<?= url('/admin/detail-course?id=' . $course['id']) ?>"><?= $course['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
                                 <?= $materi['title'] ?>

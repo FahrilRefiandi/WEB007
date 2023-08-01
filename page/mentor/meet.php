@@ -29,6 +29,10 @@ LEFT JOIN course ON learning_materials.course_id = course.id
 WHERE learning_materials.id = '$id';
 ");
 
+if (count($_POST) > 0) {
+    CourseController::deleteMeet($_POST);
+  }
+
 ?>
 
 
@@ -77,6 +81,13 @@ WHERE learning_materials.id = '$id';
                             </li>
                         </ol>
                     </nav>
+                    <div class="justify-content-end d-flex" style="margin-top: -30px;">
+                        <form method="post" id="deleteMeetForm">
+                            <input type="hidden" name="courseId" value="<?= $course['id'] ?>">
+                            <input type="hidden" name="deleteMeet" value="<?= $id ?>">
+                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i></button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- END Navigation -->
@@ -121,6 +132,32 @@ WHERE learning_materials.id = '$id';
     <script>
         tinymce.init({
             selector: 'textarea'
+        });
+
+        document.getElementById("deleteMeetForm").addEventListener("submit", function(e) {
+            var form = this;
+            e.preventDefault();
+            Swal.fire({
+                title: "Yakin course akan dihapus ?",
+                text: `Sobat <?= Session::auth()['name'] ?> akan menghapus materi ini.`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya,hapus meet!',
+                cancelButtonText: 'Tidak, batalkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (form && typeof form.submit === 'function') {
+                        form.submit();
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Dibatalkan',
+                        'Materi tidak dihapus :)',
+                        'error'
+                    )
+                }
+            });
         });
     </script>
     <?php include($notif) ?>

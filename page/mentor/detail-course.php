@@ -22,6 +22,7 @@ WHERE course.id = '$id'
 GROUP BY course.id;
 ");
 
+
 if ($data == null) {
     Session::session('success', 'Course not found');
     header("Location: " . url('/mentor/course'));
