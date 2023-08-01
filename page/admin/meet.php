@@ -11,23 +11,14 @@ require_once('layouts/template.php');
 
 require_once(__DIR__ . "../../../config/config.php");
 $id = $_GET['id'];
-$data1 = Database::getFirst("
-SELECT course.*,
-       COUNT(learning_materials.id) AS number_of_meetings,
-       COUNT(DISTINCT courses_taken.course_id) AS taken,
-       MAX(learning_materials.created_at) AS last_material
-FROM course
-LEFT JOIN learning_materials ON course.id = learning_materials.course_id
-LEFT JOIN courses_taken ON course.id = courses_taken.course_id
-WHERE course.id = '$id'
-GROUP BY course.id;
-");
-$data2 = Database::getFirst("
-SELECT learning_materials.*, course.course_title
-FROM learning_materials
-LEFT JOIN course ON learning_materials.course_id = course.id
-WHERE learning_materials.id = '$id';
-");
+
+$materi=Database::getFirst("SELECT * FROM learning_materials WHERE id='$id'");
+$course=Database::getFirst("SELECT * FROM course WHERE id='$materi[course_id]'");
+
+
+if (count($_POST) > 0) {
+    CourseController::deleteMeet($_POST);
+  }
 
 ?>
 
@@ -61,7 +52,7 @@ WHERE learning_materials.id = '$id';
             <!-- Navigation -->
             <div class="bg-body-extra-light">
                 <div class="content content-boxed py-3">
-                    <nav aria-label="breadcrumb">
+                    <nav aria-label="breadcrumb ">
                         <ol class="breadcrumb breadcrumb-alt">
                             <li class="breadcrumb-item">
                                 <a class="link-fx" href="<?= url('/mentor/dashboard') ?>">Mentor</a>
@@ -70,13 +61,20 @@ WHERE learning_materials.id = '$id';
                                 <a class="link-fx" href="<?= url('/mentor/course') ?>">Courses</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                            <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $data2['course_id']) ?>"><?= $data2['course_title'] ?></a>
+                                <a class="link-fx" href="<?= url('/mentor/detail-course?id=' . $course['id']) ?>"><?= $course['course_title'] ?></a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                                <?= $data2['title'] ?>
+                                <?= $materi['title'] ?>
                             </li>
                         </ol>
                     </nav>
+                    <div class="justify-content-end d-flex" style="margin-top: -30px;">
+                        <form method="post" id="deleteMeetForm">
+                            <input type="hidden" name="courseId" value="<?= $course['id'] ?>">
+                            <input type="hidden" name="deleteMeet" value="<?= $id ?>">
+                            <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i></button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- END Navigation -->
@@ -90,11 +88,11 @@ WHERE learning_materials.id = '$id';
                 <!-- Lessons -->
                 <div class="block block-rounded">
                     <div class="container-fluid ratio ratio-16x9 fs-sm p-5 justify-content-center" id="containerDetailMeet">
-                    <?= $data2['embed_video'] ?>
+                        <?= $materi['embed_video'] ?>
                     </div>
                     <div role="separator" class="dropdown-divider m-0"></div>
                     <div class="container bg-body-extra-light px-5 py-3">
-                    <?= $data2['description'] ?>
+                        <?= $materi['description'] ?>
                     </div>
                 </div>
                 <!-- END Lessons -->
@@ -122,9 +120,35 @@ WHERE learning_materials.id = '$id';
         tinymce.init({
             selector: 'textarea'
         });
+
+        document.getElementById("deleteMeetForm").addEventListener("submit", function(e) {
+            var form = this;
+            e.preventDefault();
+            Swal.fire({
+                title: "Yakin course akan dihapus ?",
+                text: `Sobat <?= Session::auth()['name'] ?> akan menghapus materi ini.`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya,hapus meet!',
+                cancelButtonText: 'Tidak, batalkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (form && typeof form.submit === 'function') {
+                        form.submit();
+                    }
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                        'Dibatalkan',
+                        'Materi tidak dihapus :)',
+                        'error'
+                    )
+                }
+            });
+        });
     </script>
     <?php include($notif) ?>
-    
+
 </body>
 
 </html>

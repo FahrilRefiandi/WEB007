@@ -11,13 +11,9 @@ SELECT course.*, COUNT(learning_materials.id) AS number_of_meetings, MAX(learnin
 FROM course
 LEFT JOIN learning_materials ON course.id = learning_materials.course_id
 JOIN courses_taken ON course.id = courses_taken.course_id
-WHERE courses_taken.user_id = " . Session::auth()['id'] . "
+WHERE courses_taken.user_id = ". Session::auth()['id']."
 GROUP BY course.id;
 ");
-
-var_dump($course);
-die;
-
 ?>
 
 <!doctype html>

@@ -192,4 +192,19 @@ class CourseController
         }
     }
 
+    public static function deleteMeet($request){
+        $valid=Validation::validate($request,[
+            "deleteMeet"=>"required",
+            "courseId"=>"required",
+        ]);
+
+
+
+        if($valid){
+            Database::delete("learning_materials",$request['deleteMeet']);
+            Session::session("success","Berhasil menghapus materi");
+            redirect("/admin/detail-course?id=" . urlencode($request['courseId']));
+        }
+    }
+
 }
